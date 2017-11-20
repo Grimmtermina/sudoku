@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+h1 {
+	text-align: center;
+}
+
+body {
+	background-color: gainsboro;
+	overflow: auto;
+}
+
+.btn {
+	border-width: 2px;
+	border-style: outset;
+	border-color: buttonface;
+    background-color: darkgrey;
+    color: black;
+    margin: 2px;
+    padding: 5px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Times New-Roman;
+    font-size: 18pt;
+    color: white;
+}
+
+.btnbar {
+	text-align: center;
+}
+
+.box {
+	border: solid darkgrey 1px;
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 40px;
+	float: left;
+}
+
+.puzzleSection {
+	border: solid black 1px;
+	width: 126px;
+	height: 126px;
+	float: left;
+}
+
+.puzzle {
+	margin: 0 auto;
+	width: 400px;
+}
+
+.form {
+	margin: 0 auto;
+}
