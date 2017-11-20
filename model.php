@@ -22,6 +22,17 @@ class DatabaseAdaptor {
         $stmt->execute ();
         return $stmt->fetchAll ( PDO::FETCH_ASSOC );
     }
+    
+    public function getUsers() {
+        $stmt = $this->DB->prepare ("SELECT * FROM users");
+        $stmt->execute ();
+        return $stmt->fetchAll ( PDO::FETCH_ASSOC );
+    }
+    
+    public function addUserToDB($usn,$pass) {
+        $sql = $this->DB->prepare("INSERT INTO users (username, hash) VALUES ('" . $usn . "','" . $pass . "')");
+        $sql->execute ();
+    }
 } // End class DatabaseAdaptor
 
 $theDBA = new DatabaseAdaptor ();

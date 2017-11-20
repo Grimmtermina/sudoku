@@ -23,9 +23,9 @@ password. Registration is done through the login page right now. -->
     	<?php
     	// Session-specific button functionality
         if(isset($_SESSION['user'])) {
-            echo '<form action="controller.php" method="POST">';
+            echo '<br><br><form action="controller.php" method="POST">';
             echo '<input class="btn" type="submit" name="difficulty" value="Change Difficulty">';
-            echo '<br><input class="loggedinbtn" type="submit" name="logout" value="Logout">';
+            echo '<input class="btn" type="submit" name="logout" value="Logout">';
             echo '</form><br>';
         }
         ?>

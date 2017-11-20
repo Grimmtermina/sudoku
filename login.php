@@ -20,13 +20,16 @@
     <input class="btn" type="submit" name="login" value="Login">
     </form>
     <br>
+    
+    <?php
+        if(isset($_SESSION['loginError'])) {
+            echo $_SESSION['loginError'] . '<br><br>';
+        }
+    ?>
+    
     ---------------------New to SUDOKU CHALLENGE?---------------------
     <br><br><a class="btn" href="register.php">Create your SUDOKU CHALLENGE account</a><br>
     </div>
-    <?php
-        if(isset($_SESSION['loginError'])) {
-            echo $_SESSION['loginError'];
-        }
-    ?>
+    
 </body>
 </html>
