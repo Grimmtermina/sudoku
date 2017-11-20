@@ -14,7 +14,6 @@ body {
 	border-style: outset;
 	border-color: buttonface;
     background-color: darkgrey;
-    color: black;
     margin: 2px;
     padding: 5px;
     text-decoration: none;
@@ -22,6 +21,20 @@ body {
     font-family: Times New-Roman;
     font-size: 18pt;
     color: white;
+}
+
+.loggedinbtn {
+	border-width: 2px;
+	border-style: outset;
+	border-color: buttonface;
+    background-color: darkgrey;
+    margin: 2px;
+    padding: 2px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: Times New-Roman;
+    font-size: 12pt;
+    color: black;
 }
 
 .btnbar {

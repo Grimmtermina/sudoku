@@ -12,11 +12,25 @@ password. Registration is done through the login page right now. -->
 <title>Sudoku</title>
 </head>
 <body onload="generatePuzzle();">
+	<?php 
+	   require_once './model.php';
+	   session_start();
+	?>
 	<h1>SUDOKU CHALLENGE</h1>
 	<div class="btnbar">
     	<a class="btn" href="login.php">Login</a>
     	<a class="btn" href="highScore.php">View High Scores</a>
+    	<?php
+    	// Session-specific button functionality
+        if(isset($_SESSION['user'])) {
+            echo '<form action="controller.php" method="POST">';
+            echo '<input class="btn" type="submit" name="difficulty" value="Change Difficulty">';
+            echo '<br><input class="loggedinbtn" type="submit" name="logout" value="Logout">';
+            echo '</form><br>';
+        }
+        ?>
 	</div><br>
+    
 	<?php 
 	// Automates the writing of 81 boxes organized into 9 subsections
 	echo '<div class="puzzle"><div class="puzzleSection">';
@@ -29,14 +43,18 @@ password. Registration is done through the login page right now. -->
 	        echo '</div>';
 	    }
 	}
-	echo '</div>'
+	echo '</div>';
 	?>
 	
 	<script>
 	var array = [];
 	var puzzleArray = [];
+	
+	// TODO: Change function to allow random number generation w/in sudoku guidelines
 	function generatePuzzle() {
 		var boxNum = "";
+
+		// FIXME: Currently just populates the boxes with their box #
 		for (var i = 0; i < 81; i++) {
 			boxNum = (i + 1).toString();
 			puzzleArray[i] = document.getElementById(boxNum);
