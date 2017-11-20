@@ -18,14 +18,19 @@ password. Registration is done through the login page right now. -->
 	?>
 	<h1>SUDOKU CHALLENGE</h1>
 	<div class="btnbar">
-    	<a class="btn" href="login.php">Login</a>
+		<?php
+    	// Session-specific button functionality
+        if(!isset($_SESSION['user'])) {
+            echo '<a class="btn" href="login.php">Login</a>';
+        }
+        ?>
     	<a class="btn" href="highScore.php">View High Scores</a>
     	<?php
     	// Session-specific button functionality
         if(isset($_SESSION['user'])) {
-            echo '<br><br><form action="controller.php" method="POST">';
+            echo '<form class="form" action="controller.php" method="POST">';
             echo '<input class="btn" type="submit" name="difficulty" value="Change Difficulty">';
-            echo '<input class="btn" type="submit" name="logout" value="Logout">';
+            echo '  <input class="btn" type="submit" name="logout" value="Logout">';
             echo '</form><br>';
         }
         ?>

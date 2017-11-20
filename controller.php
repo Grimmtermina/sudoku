@@ -8,6 +8,7 @@ session_start();
 unset($_SESSION['loginError']);
 unset($_SESSION['regError']);
 
+$userArr = $theDBA->getUsers();
 
 // // DEBUGGING CODE:
 // // Login button session handler
