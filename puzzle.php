@@ -11,7 +11,7 @@ password. Registration is done through the login page right now. -->
 <link href="sudoku.css" rel="stylesheet" type="text/css" />
 <title>Sudoku</title>
 </head>
-<body onload="generatePuzzle();">
+<body onload="generatePuzzle('load');">
 	<?php 
 	   require_once './model.php';
 	   session_start();
@@ -24,11 +24,12 @@ password. Registration is done through the login page right now. -->
             echo '<a class="btn" href="login.php">Login</a>';
         }
         ?>
+        <a class="btn" onclick="generatePuzzle('new');">New Puzzle</a>
     	<a class="btn" href="highScore.php">View High Scores</a>
     	<?php
     	// Session-specific button functionality
         if(isset($_SESSION['user'])) {
-            echo '<form class="form" action="controller.php" method="POST">';
+            echo '<br><br><form class="form" action="controller.php" method="POST">';
             echo '<input class="btn" type="submit" name="difficulty" value="Change Difficulty">';
             echo '  <input class="btn" type="submit" name="logout" value="Logout">';
             echo '</form><br>';
@@ -54,18 +55,34 @@ password. Registration is done through the login page right now. -->
 	<script>
 	var array = [];
 	var puzzleArray = [];
+	var intArray = [];
 	
 	// TODO: Change function to allow random number generation w/in sudoku guidelines
-	function generatePuzzle() {
+	// Should generate full puzzle and randomize which are hidden based on difficulty
+	function generatePuzzle(setting) {
 		var boxNum = "";
 
-		// FIXME: Currently just populates the boxes with their box #
-		for (var i = 0; i < 81; i++) {
-			boxNum = (i + 1).toString();
-			puzzleArray[i] = document.getElementById(boxNum);
+		if (localStorage.getItem('generated') === null || setting == 'new') {
+    		for (var i = 0; i < 81; i++) {
+    			boxNum = (i + 1).toString();
+    			puzzleArray[i] = document.getElementById(boxNum);
+    		}
+    		for (var i = 0; i < puzzleArray.length; i++) {
+        		intArray[i] = parseInt(Math.floor(Math.random()*(9)+1));
+    			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
+    		}
+    		localStorage.setItem('generated', true);
+    		localStorage.setItem('puzzle', JSON.stringify(puzzleArray));
+    		localStorage.setItem('solutions', JSON.stringify(intArray));
 		}
-		for (var i = 0; i < puzzleArray.length; i++) {
-			puzzleArray[i].innerHTML = "<b>" + i + "<b>";
+		
+		// FIXME: Local storage not working for storing puzzle
+		else {
+			puzzleArray = JSON.parse(localStorage.getItem('puzzle'));
+    		intArray = JSON.parse(localStorage.getItem('solutions'));
+    		for (var i = 0; i < puzzleArray.length; i++) {;
+    			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
+    		}
 		}
 	}
 	</script>
