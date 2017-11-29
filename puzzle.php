@@ -62,7 +62,7 @@ password. Registration is done through the login page right now. -->
 	function generatePuzzle(setting) {
 		var boxNum = "";
 
-		if (localStorage.getItem('generated') === null || setting == 'new') {
+		if (localStorage.getItem('generated') != 'true' || setting == 'new') {
     		for (var i = 0; i < 81; i++) {
     			boxNum = (i + 1).toString();
     			puzzleArray[i] = document.getElementById(boxNum);
@@ -71,15 +71,26 @@ password. Registration is done through the login page right now. -->
         		intArray[i] = parseInt(Math.floor(Math.random()*(9)+1));
     			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
     		}
-    		localStorage.setItem('generated', true);
-    		localStorage.setItem('puzzle', JSON.stringify(puzzleArray));
-    		localStorage.setItem('solutions', JSON.stringify(intArray));
+    		localStorage.setItem('generated', 'true');
+
+			// Kind of gross, trying to hard code the values to get it to work
+    		for (var i = 0; i < intarray.length; i++) {
+				localStorage.setItem('intval_' + i, intArray[i]);
+    		}
 		}
 		
-		// FIXME: Local storage not working for storing puzzle
+		// FIXME: Local storage not working for storing puzzle (maybe consider using sessionStorage) 
 		else {
-			puzzleArray = JSON.parse(localStorage.getItem('puzzle'));
-    		intArray = JSON.parse(localStorage.getItem('solutions'));
+			for (var i = 0; i < 81; i++) {
+    			boxNum = (i + 1).toString();
+    			puzzleArray[i] = document.getElementById(boxNum);
+    		}
+
+    		// Receive the hard coded values
+			for (var i = 0; i < intarray.length; i++) {
+				intArray[i] = localStorage.getItem('intval_' + i);
+    		}
+    		
     		for (var i = 0; i < puzzleArray.length; i++) {;
     			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
     		}
