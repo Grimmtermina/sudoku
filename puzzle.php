@@ -57,7 +57,7 @@ password. Registration is done through the login page right now. -->
 	var puzzleArray = [];
 	var intArray = [];
 	
-	// TODO: Change function to allow random number generation w/in sudoku guidelines
+	// TODO: Change function to allow random number generation w/in sudoku guidelines - Saile will do this
 	// Should generate full puzzle and randomize which are hidden based on difficulty
 	function generatePuzzle(setting) {
 		var boxNum = "";
