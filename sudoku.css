@@ -13,15 +13,15 @@ body {
 	border-width: 2px;
 	border-style: outset;
 	border-color: buttonface;
-    background-color: darkgrey;
-    margin: 2px;
-    padding: 5px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-family: Times New-Roman;
-    font-size: 18pt;
-    color: white;
-    cursor: pointer;
+	background-color: darkgrey;
+	margin: 2px;
+	padding: 5px;
+	text-decoration: none;
+	border-radius: 5px;
+	font-family: Times New-Roman;
+	font-size: 18pt;
+	color: white;
+	cursor: pointer;
 }
 
 .btnbar {
@@ -39,10 +39,103 @@ body {
 	float: left;
 }
 
-.puzzleSection {
-	border: solid black 1px;
-	width: 126px;
-	height: 126px;
+.topBox {
+	border: solid darkgrey 1px;
+	border-top: solid black 2px;
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 40px;
+	float: left;
+}
+
+.bottomBox {
+	border: solid darkgrey 1px;
+	border-bottom: solid black 2px;
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 40px;
+	float: left;
+}
+
+.topLeftBox {
+	border: solid darkgrey 1px;
+	border-top: solid black 2px;
+	border-left: solid black 2px;
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 40px;
+	float: left;
+}
+
+.topRightBox {
+	border: solid darkgrey 1px;
+	border-top: solid black 2px;
+	border-right: solid black 2px;
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 40px;
+	float: left;
+}
+
+.bottomLeftBox {
+	border: solid darkgrey 1px;
+	border-bottom: solid black 2px;
+	border-left: solid black 2px;
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 40px;
+	float: left;
+}
+
+.bottomRightBox {
+	border: solid darkgrey 1px;
+	border-bottom: solid black 2px;
+	border-right: solid black 2px;
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 40px;
+	float: left;
+}
+
+.leftBox {
+	border: solid darkgrey 1px;
+	border-left: solid black 2px;
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 40px;
+	float: left;
+}
+
+.rightBox {
+	border: solid darkgrey 1px;
+	border-right: solid black 2px;
+	background-color: white;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 40px;
 	float: left;
 }
 

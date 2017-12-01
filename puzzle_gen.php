@@ -1,4 +1,6 @@
 <?php
+//This is taken from an online repository
+//Credit:
 function return_row($cell) {
 	return floor ( $cell / 9 );
 }
@@ -200,8 +202,7 @@ function solve($sudoku) {
 	$ms_start = explode ( " ", $start );
 	$ms_end = explode ( " ", $end );
 	$total_time = round ( ($ms_end [1] - $ms_start [1] + $ms_end [0] - $ms_start [0]), 2 );
-	echo "completed in $x steps in $total_time seconds";
-	echo print_sudoku ( $sudoku );
+	return $sudoku;
 }
 
 $sudoku = array (
@@ -287,6 +288,4 @@ $sudoku = array (
 		0,
 		0 
 );
-
-solve ( $sudoku );
 ?>
