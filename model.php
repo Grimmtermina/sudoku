@@ -16,11 +16,14 @@ class DatabaseAdaptor {
         }
     }
     
-    // TODO: Change this to a proper Sudoku-based function
-    public function getAllMoviesAndRoles() {
-        $stmt = $this->DB->prepare ("SELECT movies.name, actors.first_name, actors.last_name, roles.role FROM roles JOIN movies ON movies.id = roles.movie_id JOIN actors ON actors.id = roles.actor_id");
+    public function getScoresTable() {
+        $stmt = $this->DB->prepare ("SELECT users.username, highscore.score FROM users JOIN highscore ON users.id = highscore.userID");
         $stmt->execute ();
         return $stmt->fetchAll ( PDO::FETCH_ASSOC );
+    }
+    
+    public function addScoreToDB($userID,$score) {
+        // FIXME: FINISH!
     }
     
     public function getUsers() {

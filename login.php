@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+<!-- AUTHORS: Andrew Miller & Saile Daimwood -->
 <html>
 <head>
 <link href="sudoku.css" rel="stylesheet" type="text/css" />

@@ -53,7 +53,6 @@ password. Registration is done through the login page right now. -->
 	?>
 	
 	<script>
-	var array = [];
 	var puzzleArray = [];
 	var intArray = [];
 	
@@ -72,7 +71,6 @@ password. Registration is done through the login page right now. -->
     			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
     		}
     		localStorage.setItem('generated', 'true');
-
 			localStorage.setItem('intArray', JSON.stringify(intArray));
 		}
 		
@@ -90,6 +88,7 @@ password. Registration is done through the login page right now. -->
     		}
 		}
 	}
+
 	</script>
 </body>
 </html>
