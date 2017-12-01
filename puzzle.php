@@ -47,17 +47,18 @@ password. Registration is done through the login page right now. -->
 			echo '<div class="topLeftBox" id="' . $i . '"></div>';
 		} else if ($i == 9) {
 			echo '<div class="topRightBox" id="' . $i . '"></div>';
-		} else if ($i == 73) {
+		} else if ($i == 73 || $i == 19 || $i == 46) {
 			echo '<div class="bottomLeftBox" id="' . $i . '"></div>';
-		} else if ($i == 81) {
+		} else if ($i == 81 || $i == 54 || $i == 27 || $i == 24 || $i == 21 || $i == 51 || $i == 48) {
 			echo '<div class="bottomRightBox" id="' . $i . '"></div>';
+		} else if ($i == 19) {
 		} else if ($i < 10) {
 			if ($i % 9 == 3 || $i % 9 == 6) {
 				echo '<div class="topRightBox" id="' . $i . '"></div>';
 			} else {
 				echo '<div class="topBox" id="' . $i . '"></div>';
 			}
-		} else if ($i > 72) {
+		} else if ($i > 72 || $i == 22 || $i == 25 || $i == 20 || $i == 23 || $i == 26 || $i == 47 || $i == 50 || $i == 49 || $i == 53 || $i == 52) {
 			if ($i % 9 == 3 || $i % 9 == 6) {
 				echo '<div class="bottomRightBox" id="' . $i . '"></div>';
 			} else {
@@ -79,6 +80,7 @@ password. Registration is done through the login page right now. -->
 	?>
 	
 	<script>
+	var array = [];
 	var puzzleArray = [];
 	var intArray = <?php echo json_encode($arrayOfNums); ?>;
 	for(var i = 0; i < intArray.length; i++){
@@ -99,6 +101,7 @@ password. Registration is done through the login page right now. -->
     			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
     		}
     		localStorage.setItem('generated', 'true');
+
 			localStorage.setItem('intArray', JSON.stringify(intArray));
 		}
 		
@@ -114,7 +117,6 @@ password. Registration is done through the login page right now. -->
     		}
 		}
 	}
-
 	</script>
 </body>
 </html>
