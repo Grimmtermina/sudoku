@@ -1,6 +1,5 @@
 <?php
 //This is taken from an online repository
-//Credit:
 function return_row($cell) {
 	return floor ( $cell / 9 );
 }
@@ -179,30 +178,31 @@ function next_random($possible) {
 }
 function solve($sudoku) {
 	$x = 0;
+	$retVal = $sudoku;
 	$start = microtime ();
 	$saved = array ();
 	$saved_sud = array ();
-	while ( ! is_solved_sudoku ( $sudoku ) ) {
+	while ( ! is_solved_sudoku ( $retVal ) ) {
 		$x += 1;
-		$next_move = scan_sudoku_for_unique ( $sudoku );
+		$next_move = scan_sudoku_for_unique ( $retVal );
 		if ($next_move == false) {
 			$next_move = array_pop ( $saved );
-			$sudoku = array_pop ( $saved_sud );
+			$retVal = array_pop ( $saved_sud );
 		}
 		$what_to_try = next_random ( $next_move );
 		$attempt = determine_random_possible_value ( $next_move, $what_to_try );
 		if (count ( $next_move [$what_to_try] ) > 1) {
 			$next_move [$what_to_try] = remove_attempt ( $next_move [$what_to_try], $attempt );
 			array_push ( $saved, $next_move );
-			array_push ( $saved_sud, $sudoku );
+			array_push ( $saved_sud, $retVal );
 		}
-		$sudoku [$what_to_try] = $attempt;
+		$retVal [$what_to_try] = $attempt;
 	}
 	$end = microtime ();
 	$ms_start = explode ( " ", $start );
 	$ms_end = explode ( " ", $end );
 	$total_time = round ( ($ms_end [1] - $ms_start [1] + $ms_end [0] - $ms_start [0]), 2 );
-	return $sudoku;
+	return $retVal;
 }
 
 $sudoku = array (

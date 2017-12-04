@@ -75,24 +75,20 @@ password. Registration is done through the login page right now. -->
 		}
 	}
 	echo '</div>';
-	
-	$arrayOfNums = solve ( $sudoku );
 	?>
 	
 	<script>
 	var array = [];
 	var puzzleArray = [];
-	var intArray = <?php echo json_encode($arrayOfNums); ?>;
-	for(var i = 0; i < intArray.length; i++){
-		console.log(intArray[i]);
-	}
+	var intArray;
 	
 	// Should generate full puzzle and randomize which are hidden based on difficulty
 	function generatePuzzle(setting) {
 		var boxNum = "";
-		
-		if ((setting == 'load' && localStorage.getItem('generated') != 'true') || setting == 'new') {
+		if ((setting === 'load' && sessionStorage.getItem('generated') == null) || setting === 'new') {
+			<?php $arrayOfNums = solve($sudoku) ?>
 			intArray = <?php echo json_encode($arrayOfNums); ?>;
+			
     		for (var i = 0; i < 81; i++) {
     			boxNum = (i + 1).toString();
     			puzzleArray[i] = document.getElementById(boxNum);
@@ -100,9 +96,12 @@ password. Registration is done through the login page right now. -->
     		for (var i = 0; i < puzzleArray.length; i++) {
     			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
     		}
-    		localStorage.setItem('generated', 'true');
+    		sessionStorage.setItem('generated', 'true');
 
-			localStorage.setItem('intArray', JSON.stringify(intArray));
+			sessionStorage.setItem('intArray', JSON.stringify(intArray));
+
+			console.log("Creating a new puzzle");
+			console.log(intArray);
 		}
 		
 		else {
