@@ -144,22 +144,6 @@ function remove_attempt($attempt_array, $number) {
 	}
 	return $new_array;
 }
-function print_possible($possible) {
-	$html = "<table bgcolor = \"#ff0000\" cellspacing = \"1\" cellpadding = \"2\">";
-	for($x = 0; $x <= 8; $x ++) {
-		$html .= "<tr bgcolor = \"yellow\" align = \"center\">";
-		for($y = 0; $y <= 8; $y ++) {
-			$values = "";
-			for($z = 0; $z <= count ( $possible [$x * 9 + $y] ); $z ++) {
-				$values .= $possible [$x * 9 + $y] [$z];
-			}
-			$html .= "<td width = \"20\" height = \"20\">$values</td>";
-		}
-		$html .= "</tr>";
-	}
-	$html .= "</table>";
-	return $html;
-}
 function next_random($possible) {
 	$max = 9;
 	
@@ -179,7 +163,6 @@ function next_random($possible) {
 function solve($sudoku) {
 	$x = 0;
 	$retVal = $sudoku;
-	$start = microtime ();
 	$saved = array ();
 	$saved_sud = array ();
 	while ( ! is_solved_sudoku ( $retVal ) ) {
@@ -198,10 +181,6 @@ function solve($sudoku) {
 		}
 		$retVal [$what_to_try] = $attempt;
 	}
-	$end = microtime ();
-	$ms_start = explode ( " ", $start );
-	$ms_end = explode ( " ", $end );
-	$total_time = round ( ($ms_end [1] - $ms_start [1] + $ms_end [0] - $ms_start [0]), 2 );
 	return $retVal;
 }
 
