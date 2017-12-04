@@ -84,7 +84,9 @@ password. Registration is done through the login page right now. -->
 	// Should generate full puzzle and randomize which are hidden based on difficulty
 	function generatePuzzle(setting) {
 		var boxNum = "";
-		if ((setting === 'load' && sessionStorage.getItem('generated') == null) || setting === 'new') {
+		console.log(sessionStorage.getItem('generated'));
+		if ((setting == 'load' && sessionStorage.getItem('generated') != 'true') || setting == 'new') {
+			console.log("going into gnp");
 			getNewPuzzle();
 			
     		for (var i = 0; i < 81; i++) {
@@ -98,8 +100,9 @@ password. Registration is done through the login page right now. -->
 
 			sessionStorage.setItem('intArray', JSON.stringify(intArray));
 		}
-		
 		else {
+			intArray = sessionStorage.getItem('intArray');
+			intArray = (intArray) ? JSON.parse(intArray) : [];
 			for (var i = 0; i < 81; i++) {
     			boxNum = (i + 1).toString();
     			puzzleArray[i] = document.getElementById(boxNum);
