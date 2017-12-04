@@ -30,15 +30,17 @@ $userArr = $theDBA->getUsers();
 // Login button session handler
 if(isset($_POST['usn']) && isset($_POST['pass'])) {
     $found = -1;
+    $usn = htmlspecialchars($usn);
+    $pass = htmlspecialchars($pass);
     // Search for existing usn
     for($i = 0; $i < count($userArr); $i++) {
-        if($userArr[$i]['username'] == $_POST['usn']) {
+        if($userArr[$i]['username'] == $usn) {
             $found = $i;
         }
     }
     // Set session based on usn (if exists)
-    if ($found != -1 && (password_verify($_POST['pass'],$userArr[$found]['hash']) == 1)) {
-        $_SESSION['user'] = $_POST['usn'];
+    if ($found != -1 && (password_verify($pass,$userArr[$found]['hash']) == 1)) {
+        $_SESSION['user'] = $usn;
         header('Location: puzzle.php');
     }
     // Return to login page with error (if doesn't exist)
@@ -53,9 +55,11 @@ if(isset($_POST['usn']) && isset($_POST['pass'])) {
 // Registration session handler
 if(isset($_POST['regusn']) && isset($_POST['regpass'])) {
     $found = -1;
+    $regusn = htmlspecialchars_decode($regusn);
+    $regpass = htmlspecialchars_decode($regpass);
     // Check for existing usn
     for($i = 0; $i < count($userArr); $i++) {
-        if($userArr[$i]['username'] == $_POST['regusn']) {
+        if($userArr[$i]['username'] == $regusn) {
             $found++;
         }
     }
@@ -66,8 +70,8 @@ if(isset($_POST['regusn']) && isset($_POST['regpass'])) {
     }
     // Add new usn with associated password to the database (if doesn't exist)
     else {
-        $hash = password_hash($_POST['regpass'], PASSWORD_DEFAULT);
-        $theDBA->addUserToDB($_POST['regusn'],$hash);
+        $hash = password_hash($regpass, PASSWORD_DEFAULT);
+        $theDBA->addUserToDB($regusn,$hash);
         header('Location: puzzle.php');
     }
     unset($_SESSION['regusn']);
@@ -75,8 +79,9 @@ if(isset($_POST['regusn']) && isset($_POST['regpass'])) {
 }
 
 // Difficulty settings handler
-// TODO: Decide on whether to perform through a separate page or a dropdown menu or something
-
+if(isset($_POST['difficulty'])) {
+    // TODO: Take difficulty and change
+}
 // Logout session handler
 if(isset( $_POST['logout']) && $_POST['logout'] == 'Logout') {
     session_destroy();
