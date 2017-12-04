@@ -85,7 +85,7 @@ password. Registration is done through the login page right now. -->
 	function generatePuzzle(setting) {
 		var boxNum = "";
 		console.log(sessionStorage.getItem('generated'));
-		if ((setting === 'load' && sessionStorage.getItem('generated') == null) || setting === 'new') {
+		if ((setting == 'load' && sessionStorage.getItem('generated') != 'true') || setting == 'new') {
 			console.log("going into gnp");
 			getNewPuzzle();
 			console.log("returned result is: " + intArray);
@@ -102,6 +102,8 @@ password. Registration is done through the login page right now. -->
 		}
 		
 		else {
+			intArray = sessionStorage.getItem('intArray');
+			intArray = (intArray) ? JSON.parse(intArray) : [];
 			for (var i = 0; i < 81; i++) {
     			boxNum = (i + 1).toString();
     			puzzleArray[i] = document.getElementById(boxNum);
