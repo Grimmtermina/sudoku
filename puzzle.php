@@ -39,7 +39,6 @@ password. Registration is done through the login page right now. -->
 	<br>
     
 	<?php
-	include "puzzle_gen.php";
 	// Automates the writing of 81 boxes organized into 9 subsections
 	echo '<div class="puzzle">';
 	for($i = 1; $i < 82; $i ++) {
@@ -85,10 +84,11 @@ password. Registration is done through the login page right now. -->
 	// Should generate full puzzle and randomize which are hidden based on difficulty
 	function generatePuzzle(setting) {
 		var boxNum = "";
+		console.log(sessionStorage.getItem('generated'));
 		if ((setting === 'load' && sessionStorage.getItem('generated') == null) || setting === 'new') {
-			<?php $arrayOfNums = solve($sudoku) ?>
-			intArray = <?php echo json_encode($arrayOfNums); ?>;
-			
+			console.log("going into gnp");
+			getNewPuzzle();
+			console.log("returned result is: " + intArray);
     		for (var i = 0; i < 81; i++) {
     			boxNum = (i + 1).toString();
     			puzzleArray[i] = document.getElementById(boxNum);
@@ -99,13 +99,9 @@ password. Registration is done through the login page right now. -->
     		sessionStorage.setItem('generated', 'true');
 
 			sessionStorage.setItem('intArray', JSON.stringify(intArray));
-
-			console.log("Creating a new puzzle");
-			console.log(intArray);
 		}
 		
 		else {
-			
 			for (var i = 0; i < 81; i++) {
     			boxNum = (i + 1).toString();
     			puzzleArray[i] = document.getElementById(boxNum);
@@ -115,6 +111,22 @@ password. Registration is done through the login page right now. -->
     			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
     		}
 		}
+	}
+
+	function getNewPuzzle(){
+		console.log("in gnp");
+		var anObj = new XMLHttpRequest();
+		anObj.open("GET", "puzzle_gen.php", true);
+		anObj.send();
+		console.log(anObj.status);
+	
+		anObj.onreadystatechange = function() {
+			if (anObj.readyState == 4 && anObj.status == 200) {
+				console.log("request received");
+				array = JSON.parse(anObj.responseText);
+				intArray = array;
+			}
+		};
 	}
 	</script>
 </body>

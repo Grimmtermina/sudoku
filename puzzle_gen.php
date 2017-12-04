@@ -288,4 +288,5 @@ $sudoku = array (
 		0,
 		0 
 );
+echo json_encode(solve($sudoku));
 ?>
