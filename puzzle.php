@@ -27,17 +27,18 @@ password. Registration is done through the login page right now. -->
         <a class="btn" onclick="generatePuzzle('new', 'easy');">New
 			Puzzle</a> <a class="btn" href="highScore.php">View High Scores</a>
     	<?php
-					// Session-specific button functionality
-					if (isset ( $_SESSION ['user'] )) {
-						echo '<br><br><form class="form" action="controller.php" method="POST">';
-						echo '<input class="btn" type="submit" name="difficulty" value="Change Difficulty">';
-						echo '  <select class="btn" name="difficulty">
-                        <option>Easy</option>
-					    <option>Medium</option>
-					    <option>Hard</option></select>';
-						echo '</form><br>';
-					}
-					?>
+    		// Session-specific button functionality
+    		if (isset ( $_SESSION ['user'] )) {
+    			echo '<br><br><form class="form" action="controller.php" method="POST">';
+    			echo '<select class="btn" name="difficulty" onchange=this.form.submit()>
+                <option value="none">Difficulty</option>
+                <option value="easy">Easy</option>
+    		    <option value="medium">Medium</option>
+    		    <option value="hard">Hard</option></select>';
+    			echo '   <input class="btn" type="submit" name="logout" value="Logout">';
+    			echo '</form><br>';
+    		}
+		?>
 	</div>
 	<br>
     
@@ -256,6 +257,7 @@ password. Registration is done through the login page right now. -->
 		generatePuzzle('new', 'easy');
 	}
 	</script>
+	<br>
 	<br>
 	<br>
 	<br>
