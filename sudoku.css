@@ -37,6 +37,20 @@ tr:nth-child(even) {
 	cursor: pointer;
 }
 
+.searchBtn {
+	border-width: 2px;
+	border-style: outset;
+	border-color: buttonface;
+	background-color: darkgrey;
+	margin: 2px;
+	padding: 5px;
+	text-decoration: none;
+	border-radius: 5px;
+	font-family: Times New-Roman;
+	color: white;
+	cursor: pointer;
+}
+
 .btnbar {
 	text-align: center;
 }
@@ -171,4 +185,9 @@ tr:nth-child(even) {
 
 .form {
 	display: inline;
+}
+
+.search {
+	font-family: Times New-Roman;
+	height: 30px;
 }

@@ -8,24 +8,8 @@ session_start();
 unset($_SESSION['loginError']);
 unset($_SESSION['regError']);
 
+// Full array of all users and hashed passwords
 $userArr = $theDBA->getUsers();
-
-// // DEBUGGING CODE:
-// // Login button session handler
-// if(isset($_POST['usn']) && isset($_POST['pass'])) {
-//     // Check if correct usn & pass, then set the user for the session
-//     if ($_POST['usn'] == 'player' && $_POST['pass'] == '1234') {
-//         $_SESSION['user'] = $_POST['usn'];
-//         header('Location: puzzle.php');
-//     }
-//     // Return to login page with error (if doesn't exist)
-//     else {
-//         $_SESSION['loginError'] = 'Invalid USN or pass.';
-//         header('Location: login.php');
-//     }
-//     unset($_SESSION['usn']);
-//     unset($_SESSION['pass']);
-// }
 
 // Login button session handler
 if(isset($_POST['usn']) && isset($_POST['pass'])) {
@@ -94,6 +78,7 @@ if(isset($_POST['difficulty'])) {
         header('Location: puzzle.php');
     }
 }
+
 // Logout session handler
 if(isset( $_POST['logout']) && $_POST['logout'] == 'Logout') {
     session_destroy();
