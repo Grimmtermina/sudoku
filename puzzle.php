@@ -24,8 +24,8 @@ password. Registration is done through the login page right now. -->
 			echo '<a class="btn" href="login.php">Login</a>';
 		}
 		?>
-        <a class="btn" onclick="generatePuzzle('new', 'easy');">New Puzzle</a> <a
-			class="btn" href="highScore.php">View High Scores</a>
+        <a class="btn" onclick="generatePuzzle('new', 'easy');">New
+			Puzzle</a> <a class="btn" href="highScore.php">View High Scores</a>
     	<?php
 					// Session-specific button functionality
 					if (isset ( $_SESSION ['user'] )) {
@@ -86,7 +86,6 @@ password. Registration is done through the login page right now. -->
 	function generatePuzzle(setting, difficulty) {
 		var boxNum = "";
 		getNewPuzzle();
-		console.log(sessionStorage.getItem('generated'));
 		if ((setting == 'load' && sessionStorage.getItem('generated') != 'true') || setting == 'new') {
 			
     		for (var i = 0; i < 81; i++) {
@@ -123,7 +122,6 @@ password. Registration is done through the login page right now. -->
 				while(one == two){
 					two = Math.floor(Math.random()*9);
 				}
-				console.log(one + " " + two);
 
 				one = i*9 + one + 1;
 				two = i*9 + two + 1;
@@ -131,8 +129,8 @@ password. Registration is done through the login page right now. -->
 				flagArray[one-1] = 1;
 				flagArray[two-1] = 1;
 				//replace with text boxes
-				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "'>";
-				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "'>";
+				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
+				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
 			}
 			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
 		}
@@ -149,6 +147,26 @@ password. Registration is done through the login page right now. -->
 			}
 		};
 	}
+
+	function checkSolutions(){
+		flagArray = sessionStorage.getItem('flagArray');
+		for(var i = 0; i < flagArray.length; i++){
+			if(flagArray[i] == 1){
+				//do something here
+				if(document.getElementById().value == document.getElementById().value){
+					continue;
+				} else{
+					var row = Math.floor(i/9) + 1;
+					var col = (i % 9) + 1;
+					alert("Your submission is incorrect. The first error we ran into was at " + row + ", " + col + "(row,column)");
+				}
+			}
+		}
+	}
 	</script>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<div class="btnbar2">
+		<button class="btn" onclick="checkSolutions();">Check Submission</button>
+	</div>
 </body>
 </html>

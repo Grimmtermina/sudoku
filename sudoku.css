@@ -41,7 +41,11 @@ tr:nth-child(even) {
 	text-align: center;
 }
 
-input[type=text] {
+.btnbar2 {
+	text-align: center;
+}
+
+.sudokuInput {
 	width: 35px;
 	height: 35px;
 	margin: 0 auto;
