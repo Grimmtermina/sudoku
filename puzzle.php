@@ -11,7 +11,7 @@ password. Registration is done through the login page right now. -->
 <link href="sudoku.css" rel="stylesheet" type="text/css" />
 <title>Sudoku</title>
 </head>
-<body onload="generatePuzzle('load');">
+<body onload="generatePuzzle('load', 'easy');">
 	<?php
 	require_once './model.php';
 	session_start ();
@@ -24,7 +24,7 @@ password. Registration is done through the login page right now. -->
 			echo '<a class="btn" href="login.php">Login</a>';
 		}
 		?>
-        <a class="btn" onclick="generatePuzzle('new');">New Puzzle</a> <a
+        <a class="btn" onclick="generatePuzzle('new', 'easy');">New Puzzle</a> <a
 			class="btn" href="highScore.php">View High Scores</a>
     	<?php
 					// Session-specific button functionality
@@ -80,14 +80,14 @@ password. Registration is done through the login page right now. -->
 	var array = [];
 	var puzzleArray = [];
 	var intArray;
+	var flagArray = [];
 	
 	// Should generate full puzzle and randomize which are hidden based on difficulty
-	function generatePuzzle(setting) {
+	function generatePuzzle(setting, difficulty) {
 		var boxNum = "";
+		getNewPuzzle();
 		console.log(sessionStorage.getItem('generated'));
 		if ((setting == 'load' && sessionStorage.getItem('generated') != 'true') || setting == 'new') {
-			console.log("going into gnp");
-			getNewPuzzle();
 			
     		for (var i = 0; i < 81; i++) {
     			boxNum = (i + 1).toString();
@@ -112,17 +112,37 @@ password. Registration is done through the login page right now. -->
     			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
     		}
 		}
+
+		if(difficulty === 'easy'){
+			for(var i = 0; i < 81; i++){
+				flagArray[i] = 0;
+			}
+			for(var i = 0; i < 9; i++){
+				var one = Math.floor(Math.random()*9);
+				var two = Math.floor(Math.random()*9);
+				while(one == two){
+					two = Math.floor(Math.random()*9);
+				}
+				console.log(one + " " + two);
+
+				one = i*9 + one + 1;
+				two = i*9 + two + 1;
+				//flag the boxes we'll be changing so we can find them easily.
+				flagArray[one-1] = 1;
+				flagArray[two-1] = 1;
+				//replace with text boxes
+				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "'>";
+				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "'>";
+			}
+			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
+		}
 	}
 
 	function getNewPuzzle(){
 		var anObj = new XMLHttpRequest();
 		anObj.open("GET", "puzzle_gen.php", true);
 		anObj.send();
-		for(var i = 0; i < 100000; i++){
-		
-		}
 		anObj.onreadystatechange = function() {
-			console.log(anObj.readyState);
 			if (anObj.readyState == 4 && anObj.status == 200) {
 				array = JSON.parse(anObj.responseText);
 				intArray = array;

@@ -10,16 +10,16 @@ body {
 }
 
 table, td, th {
-  border: 1px solid black;
-  padding: 5px;
-} 
+	border: 1px solid black;
+	padding: 5px;
+}
 
 table {
-  border-collapse: collapse;
+	border-collapse: collapse;
 }
 
 tr:nth-child(even) {
-  background-color: #f2f2f2
+	background-color: #f2f2f2
 }
 
 .btn {
@@ -39,6 +39,14 @@ tr:nth-child(even) {
 
 .btnbar {
 	text-align: center;
+}
+
+input[type=text] {
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+	padding: 0 auto;
+	border: 0 auto;
 }
 
 .box {
