@@ -277,6 +277,7 @@ password. Registration is done through the login page right now. -->
 	<br>
 	<br>
 	<br>
+	<br>
 	<div class="btnbar2">
 		<button class="btn" onclick="checkSolutions();">Check Submission</button>
 	</div>
