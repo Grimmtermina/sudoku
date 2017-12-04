@@ -84,11 +84,9 @@ password. Registration is done through the login page right now. -->
 	// Should generate full puzzle and randomize which are hidden based on difficulty
 	function generatePuzzle(setting) {
 		var boxNum = "";
-		console.log(sessionStorage.getItem('generated'));
 		if ((setting === 'load' && sessionStorage.getItem('generated') == null) || setting === 'new') {
-			console.log("going into gnp");
 			getNewPuzzle();
-			console.log("returned result is: " + intArray);
+			
     		for (var i = 0; i < 81; i++) {
     			boxNum = (i + 1).toString();
     			puzzleArray[i] = document.getElementById(boxNum);
@@ -114,15 +112,15 @@ password. Registration is done through the login page right now. -->
 	}
 
 	function getNewPuzzle(){
-		console.log("in gnp");
 		var anObj = new XMLHttpRequest();
 		anObj.open("GET", "puzzle_gen.php", true);
 		anObj.send();
-		console.log(anObj.status);
-	
+		for(var i = 0; i < 100000; i++){
+		
+		}
 		anObj.onreadystatechange = function() {
+			console.log(anObj.readyState);
 			if (anObj.readyState == 4 && anObj.status == 200) {
-				console.log("request received");
 				array = JSON.parse(anObj.responseText);
 				intArray = array;
 			}
