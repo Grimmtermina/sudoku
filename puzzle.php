@@ -224,6 +224,8 @@ password. Registration is done through the login page right now. -->
 		};
 	}
 
+	//STRETCH TODO: Find all invalid inputs(mark in separate matrix)
+	//				Highlight the boxes that they are contained in red(temporary).
 	function checkSolutions(){
 		flagArrayTemp = sessionStorage.getItem('flagArray');
 		flagArrayTemp = (flagArrayTemp) ? JSON.parse(flagArrayTemp) : [];
@@ -234,7 +236,6 @@ password. Registration is done through the login page right now. -->
 		for(var i = 0; i < flagArrayTemp.length; i++){
 			console.log(flagArrayTemp[i]);
 			if(flagArrayTemp[i] == 1){
-				//do something here
 				var num = i + 1;
 				console.log("inputBox" + num);
 				if(intArrayTemp[i] == document.getElementById('inputBox' + num).value){
@@ -243,7 +244,7 @@ password. Registration is done through the login page right now. -->
 					var row = Math.floor(i/9) + 1;
 					var col = (i % 9) + 1;
 					alert("Your submission is incorrect. The first error seen was at " + row + ", " + col + "(row,column)");
-					
+					document.getElementById('inputBox'+num).value = "";
 					return;
 				}
 			}
@@ -251,7 +252,7 @@ password. Registration is done through the login page right now. -->
 		alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
 		//TODO: Database stuff here for putting in score based on difficulty.
 		
-		//TODO, generate below based on current 
+		//TODO, generate below based on current not always easy
 		generatePuzzle('new', 'easy');
 	}
 	</script>
