@@ -27,18 +27,17 @@ password. Registration is done through the login page right now. -->
         <a class="btn" onclick="generatePuzzle('new', 'easy');">New
 			Puzzle</a> <a class="btn" href="highScore.php">View High Scores</a>
     	<?php
-    		// Session-specific button functionality
-    		if (isset ( $_SESSION ['user'] )) {
-    			echo '<br><br><form class="form" action="controller.php" method="POST">';
-    			echo '  <select class="btn" name="difficulty" onchange=this.form.submit()>
-                <option value="none">Difficulty</option>
-                <option value="easy">Easy</option>
-    		    <option value="medium">Medium</option>
-    		    <option value="hard">Hard</option></select>';
-    			echo '  <input class="btn" type="submit" name="logout" value="Logout">';
-    			echo '</form><br>';
-    		}
-		?>
+					// Session-specific button functionality
+					if (isset ( $_SESSION ['user'] )) {
+						echo '<br><br><form class="form" action="controller.php" method="POST">';
+						echo '<input class="btn" type="submit" name="difficulty" value="Change Difficulty">';
+						echo '  <select class="btn" name="difficulty">
+                        <option>Easy</option>
+					    <option>Medium</option>
+					    <option>Hard</option></select>';
+						echo '</form><br>';
+					}
+					?>
 	</div>
 	<br>
     
@@ -115,8 +114,18 @@ password. Registration is done through the login page right now. -->
     			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
     		}
 		}
+		
+		if(sessionStorage.getItem('generated') === 'true' && setting != 'new'){
+			flagArrayTemp = sessionStorage.getItem('flagArray');
+			flagArrayTemp = (flagArrayTemp) ? JSON.parse(flagArrayTemp) : [];
 
-		if(difficulty === 'easy'){
+			for(var i = 0; i < 81; i++){
+				if(flagArrayTemp[i] == 1){
+					var val = i + 1;
+					puzzleArray[i].innerHTML = "<input type='text' id='inputBox" + val + "' class='sudokuInput'>";
+				}
+			}
+		} else if(difficulty === 'easy'){
 			for(var i = 0; i < 81; i++){
 				flagArray[i] = 0;
 			}
@@ -137,6 +146,69 @@ password. Registration is done through the login page right now. -->
 				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
 			}
 			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
+		} else if(difficulty === 'medium'){
+			for(var i = 0; i < 81; i++){
+				flagArray[i] = 0;
+			}
+			for(var i = 0; i < 9; i++){
+				var one = Math.floor(Math.random()*9);
+				var two = Math.floor(Math.random()*9);
+				while(one == two){
+					two = Math.floor(Math.random()*9);
+				}
+				var three = Math.floor(Math.random()*9);
+				while(three == two || three == one){
+					three = Math.floor(Math.random()*9);
+				}
+
+				one = i*9 + one + 1;
+				two = i*9 + two + 1;
+				three = i*9 + three + 1;
+				//flag the boxes we'll be changing so we can find them easily.
+				flagArray[one-1] = 1;
+				flagArray[two-1] = 1;
+				flagArray[three-1] = 1;
+				//replace with text boxes
+				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
+				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
+				puzzleArray[three-1].innerHTML = "<input type='text' id='inputBox" + three + "' class='sudokuInput'>";
+			}
+			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
+		} else if(difficulty === 'hard'){
+			for(var i = 0; i < 81; i++){
+				flagArray[i] = 0;
+			}
+			for(var i = 0; i < 9; i++){
+				var one = Math.floor(Math.random()*9);
+				var two = Math.floor(Math.random()*9);
+				while(one == two){
+					two = Math.floor(Math.random()*9);
+				}
+				var three = Math.floor(Math.random()*9);
+				while(three == two || three == one){
+					three = Math.floor(Math.random()*9);
+				}
+				var four = Math.floor(Math.random()*9);
+				while(four == three || four == two || four == one){
+					four = Math.floor(Math.random()*9);
+				}
+
+				one = i*9 + one + 1;
+				two = i*9 + two + 1;
+				three = i*9 + three + 1;
+				four = i*9 + four + 1;
+				//flag the boxes we'll be changing so we can find them easily.
+				flagArray[one-1] = 1;
+				flagArray[two-1] = 1;
+				flagArray[three-1] = 1;
+				flagArray[four-1] = 1;
+				//replace with text boxes
+				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
+				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
+				puzzleArray[three-1].innerHTML = "<input type='text' id='inputBox" + three + "' class='sudokuInput'>";
+				puzzleArray[four-1].innerHTML = "<input type='text' id='inputBox" + four + "' class='sudokuInput'>";
+			}
+			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
 		}
 	}
 
@@ -152,23 +224,59 @@ password. Registration is done through the login page right now. -->
 		};
 	}
 
+	//STRETCH TODO: Find all invalid inputs(mark in separate matrix)
+	//				Highlight the boxes that they are contained in red(temporary).
 	function checkSolutions(){
-		flagArray = sessionStorage.getItem('flagArray');
-		for(var i = 0; i < flagArray.length; i++){
-			if(flagArray[i] == 1){
-				//do something here
-				if(document.getElementById().value == document.getElementById().value){
+		flagArrayTemp = sessionStorage.getItem('flagArray');
+		flagArrayTemp = (flagArrayTemp) ? JSON.parse(flagArrayTemp) : [];
+		
+		intArrayTemp = sessionStorage.getItem('intArray');
+		intArrayTemp = (intArrayTemp) ? JSON.parse(intArrayTemp) : [];
+		
+		for(var i = 0; i < flagArrayTemp.length; i++){
+			console.log(flagArrayTemp[i]);
+			if(flagArrayTemp[i] == 1){
+				var num = i + 1;
+				console.log("inputBox" + num);
+				if(intArrayTemp[i] == document.getElementById('inputBox' + num).value){
 					continue;
 				} else{
 					var row = Math.floor(i/9) + 1;
 					var col = (i % 9) + 1;
-					alert("Your submission is incorrect. The first error we ran into was at " + row + ", " + col + "(row,column)");
+					alert("Your submission is incorrect. The first error seen was at " + row + ", " + col + "(row,column)");
+					document.getElementById('inputBox'+num).value = "";
+					return;
 				}
 			}
 		}
+		alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
+		//TODO: Database stuff here for putting in score based on difficulty.
+		
+		//TODO, generate below based on current not always easy
+		generatePuzzle('new', 'easy');
 	}
 	</script>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div class="btnbar2">
 		<button class="btn" onclick="checkSolutions();">Check Submission</button>
 	</div>
