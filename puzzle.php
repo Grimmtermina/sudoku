@@ -101,6 +101,29 @@ password. Registration is done through the login page right now. -->
     		sessionStorage.setItem('generated', 'true');
 
 			sessionStorage.setItem('intArray', JSON.stringify(intArray));
+
+			if(difficulty === 'easy'){
+				for(var i = 0; i < 81; i++){
+					flagArray[i] = 0;
+				}
+				for(var i = 0; i < 9; i++){
+					var one = Math.floor(Math.random()*9);
+					var two = Math.floor(Math.random()*9);
+					while(one == two){
+						two = Math.floor(Math.random()*9);
+					}
+
+					one = i*9 + one + 1;
+					two = i*9 + two + 1;
+					//flag the boxes we'll be changing so we can find them easily.
+					flagArray[one-1] = 1;
+					flagArray[two-1] = 1;
+					//replace with text boxes
+					puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
+					puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
+				}
+				sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
+			}
 		}
 		else {
 			intArray = sessionStorage.getItem('intArray');
@@ -113,29 +136,6 @@ password. Registration is done through the login page right now. -->
     		for (var i = 0; i < puzzleArray.length; i++) {;
     			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
     		}
-		}
-
-		if(difficulty === 'easy'){
-			for(var i = 0; i < 81; i++){
-				flagArray[i] = 0;
-			}
-			for(var i = 0; i < 9; i++){
-				var one = Math.floor(Math.random()*9);
-				var two = Math.floor(Math.random()*9);
-				while(one == two){
-					two = Math.floor(Math.random()*9);
-				}
-
-				one = i*9 + one + 1;
-				two = i*9 + two + 1;
-				//flag the boxes we'll be changing so we can find them easily.
-				flagArray[one-1] = 1;
-				flagArray[two-1] = 1;
-				//replace with text boxes
-				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
-				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
-			}
-			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
 		}
 	}
 
@@ -152,22 +152,56 @@ password. Registration is done through the login page right now. -->
 	}
 
 	function checkSolutions(){
-		flagArray = sessionStorage.getItem('flagArray');
-		for(var i = 0; i < flagArray.length; i++){
-			if(flagArray[i] == 1){
+		flagArrayTemp = sessionStorage.getItem('flagArray');
+		flagArrayTemp = (flagArrayTemp) ? JSON.parse(flagArrayTemp) : [];
+		
+		intArrayTemp = sessionStorage.getItem('intArray');
+		intArrayTemp = (intArrayTemp) ? JSON.parse(intArrayTemp) : [];
+		
+		for(var i = 0; i < flagArrayTemp.length; i++){
+			console.log(flagArrayTemp[i]);
+			if(flagArrayTemp[i] == 1){
 				//do something here
-				if(document.getElementById().value == document.getElementById().value){
+				var num = i + 1;
+				console.log("inputBox" + num);
+				if(intArrayTemp[i] == document.getElementById('inputBox' + num).value){
 					continue;
 				} else{
 					var row = Math.floor(i/9) + 1;
 					var col = (i % 9) + 1;
-					alert("Your submission is incorrect. The first error we ran into was at " + row + ", " + col + "(row,column)");
+					alert("Your submission is incorrect. The first error seen was at " + row + ", " + col + "(row,column)");
+					
+					return;
 				}
 			}
 		}
+		alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
+		//TODO: Database stuff here for putting in score based on difficulty.
+		//TODO, generate below based on current 
+		generatePuzzle('new', 'easy');
 	}
 	</script>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div class="btnbar2">
 		<button class="btn" onclick="checkSolutions();">Check Submission</button>
 	</div>
