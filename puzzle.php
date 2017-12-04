@@ -101,29 +101,6 @@ password. Registration is done through the login page right now. -->
     		sessionStorage.setItem('generated', 'true');
 
 			sessionStorage.setItem('intArray', JSON.stringify(intArray));
-
-			if(difficulty === 'easy'){
-				for(var i = 0; i < 81; i++){
-					flagArray[i] = 0;
-				}
-				for(var i = 0; i < 9; i++){
-					var one = Math.floor(Math.random()*9);
-					var two = Math.floor(Math.random()*9);
-					while(one == two){
-						two = Math.floor(Math.random()*9);
-					}
-
-					one = i*9 + one + 1;
-					two = i*9 + two + 1;
-					//flag the boxes we'll be changing so we can find them easily.
-					flagArray[one-1] = 1;
-					flagArray[two-1] = 1;
-					//replace with text boxes
-					puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
-					puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
-				}
-				sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
-			}
 		}
 		else {
 			intArray = sessionStorage.getItem('intArray');
@@ -136,6 +113,102 @@ password. Registration is done through the login page right now. -->
     		for (var i = 0; i < puzzleArray.length; i++) {;
     			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
     		}
+		}
+		
+		if(sessionStorage.getItem('generated') === 'true' && setting != 'new'){
+			flagArrayTemp = sessionStorage.getItem('flagArray');
+			flagArrayTemp = (flagArrayTemp) ? JSON.parse(flagArrayTemp) : [];
+
+			for(var i = 0; i < 81; i++){
+				if(flagArrayTemp[i] == 1){
+					var val = i + 1;
+					puzzleArray[i].innerHTML = "<input type='text' id='inputBox" + val + "' class='sudokuInput'>";
+				}
+			}
+		} else if(difficulty === 'easy'){
+			for(var i = 0; i < 81; i++){
+				flagArray[i] = 0;
+			}
+			for(var i = 0; i < 9; i++){
+				var one = Math.floor(Math.random()*9);
+				var two = Math.floor(Math.random()*9);
+				while(one == two){
+					two = Math.floor(Math.random()*9);
+				}
+
+				one = i*9 + one + 1;
+				two = i*9 + two + 1;
+				//flag the boxes we'll be changing so we can find them easily.
+				flagArray[one-1] = 1;
+				flagArray[two-1] = 1;
+				//replace with text boxes
+				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
+				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
+			}
+			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
+		} else if(difficulty === 'medium'){
+			for(var i = 0; i < 81; i++){
+				flagArray[i] = 0;
+			}
+			for(var i = 0; i < 9; i++){
+				var one = Math.floor(Math.random()*9);
+				var two = Math.floor(Math.random()*9);
+				while(one == two){
+					two = Math.floor(Math.random()*9);
+				}
+				var three = Math.floor(Math.random()*9);
+				while(three == two || three == one){
+					three = Math.floor(Math.random()*9);
+				}
+
+				one = i*9 + one + 1;
+				two = i*9 + two + 1;
+				three = i*9 + three + 1;
+				//flag the boxes we'll be changing so we can find them easily.
+				flagArray[one-1] = 1;
+				flagArray[two-1] = 1;
+				flagArray[three-1] = 1;
+				//replace with text boxes
+				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
+				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
+				puzzleArray[three-1].innerHTML = "<input type='text' id='inputBox" + three + "' class='sudokuInput'>";
+			}
+			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
+		} else if(difficulty === 'hard'){
+			for(var i = 0; i < 81; i++){
+				flagArray[i] = 0;
+			}
+			for(var i = 0; i < 9; i++){
+				var one = Math.floor(Math.random()*9);
+				var two = Math.floor(Math.random()*9);
+				while(one == two){
+					two = Math.floor(Math.random()*9);
+				}
+				var three = Math.floor(Math.random()*9);
+				while(three == two || three == one){
+					three = Math.floor(Math.random()*9);
+				}
+				var four = Math.floor(Math.random()*9);
+				while(four == three || four == two || four == one){
+					four = Math.floor(Math.random()*9);
+				}
+
+				one = i*9 + one + 1;
+				two = i*9 + two + 1;
+				three = i*9 + three + 1;
+				four = i*9 + four + 1;
+				//flag the boxes we'll be changing so we can find them easily.
+				flagArray[one-1] = 1;
+				flagArray[two-1] = 1;
+				flagArray[three-1] = 1;
+				flagArray[four-1] = 1;
+				//replace with text boxes
+				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
+				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
+				puzzleArray[three-1].innerHTML = "<input type='text' id='inputBox" + three + "' class='sudokuInput'>";
+				puzzleArray[four-1].innerHTML = "<input type='text' id='inputBox" + four + "' class='sudokuInput'>";
+			}
+			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
 		}
 	}
 
