@@ -30,8 +30,8 @@ $userArr = $theDBA->getUsers();
 // Login button session handler
 if(isset($_POST['usn']) && isset($_POST['pass'])) {
     $found = -1;
-    $usn = htmlspecialchars($usn);
-    $pass = htmlspecialchars($pass);
+    $usn = htmlspecialchars($_POST['usn']);
+    $pass = htmlspecialchars($_POST['pass']);
     // Search for existing usn
     for($i = 0; $i < count($userArr); $i++) {
         if($userArr[$i]['username'] == $usn) {
@@ -55,8 +55,8 @@ if(isset($_POST['usn']) && isset($_POST['pass'])) {
 // Registration session handler
 if(isset($_POST['regusn']) && isset($_POST['regpass'])) {
     $found = -1;
-    $regusn = htmlspecialchars_decode($regusn);
-    $regpass = htmlspecialchars_decode($regpass);
+    $regusn = htmlspecialchars($regusn);
+    $regpass = htmlspecialchars($regpass);
     // Check for existing usn
     for($i = 0; $i < count($userArr); $i++) {
         if($userArr[$i]['username'] == $regusn) {
@@ -80,7 +80,19 @@ if(isset($_POST['regusn']) && isset($_POST['regpass'])) {
 
 // Difficulty settings handler
 if(isset($_POST['difficulty'])) {
-    // TODO: Take difficulty and change
+    $difficulty = htmlspecialchars($_POST['difficulty']);
+    if ($difficulty == 'easy') {
+        $_SESSION['difficulty'] = 'easy';
+        header('Location: puzzle.php');
+    }
+    else if ($difficulty == 'medium') {
+        $_SESSION['difficulty'] = 'medium';
+        header('Location: puzzle.php');
+    }
+    else if ($difficulty == 'hard') {
+        $_SESSION['difficulty'] = 'hard';
+        header('Location: puzzle.php');
+    }
 }
 // Logout session handler
 if(isset( $_POST['logout']) && $_POST['logout'] == 'Logout') {
