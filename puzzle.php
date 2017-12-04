@@ -177,6 +177,7 @@ password. Registration is done through the login page right now. -->
 		}
 		alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
 		//TODO: Database stuff here for putting in score based on difficulty.
+		
 		//TODO, generate below based on current 
 		generatePuzzle('new', 'easy');
 	}
