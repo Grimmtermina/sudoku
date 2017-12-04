@@ -31,7 +31,10 @@ password. Registration is done through the login page right now. -->
 					if (isset ( $_SESSION ['user'] )) {
 						echo '<br><br><form class="form" action="controller.php" method="POST">';
 						echo '<input class="btn" type="submit" name="difficulty" value="Change Difficulty">';
-						echo '  <input class="btn" type="submit" name="logout" value="Logout">';
+						echo '  <select class="btn" name="difficulty">
+                        <option>Easy</option>
+					    <option>Medium</option>
+					    <option>Hard</option></select>';
 						echo '</form><br>';
 					}
 					?>
