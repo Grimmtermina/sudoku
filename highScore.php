@@ -10,8 +10,9 @@
 <body onload="fillTable();">
 <a class="btn" href="puzzle.php">&larr; Back</a><br><br>
 
-<input type="text" id="playerInput"><input type="submit" value="Search player" class="searchBtn" onsubmit="searchPlayer();"><br><br>
+<input class="search" type="text" id="playerInput"><input type="submit" value="Search player" class="searchBtn" onclick="searchPlayer();"><br><br>
 <div id="toChange"></div>
+<div id="searchResult"></div>
 
 <?php
 include 'model.php';
@@ -58,7 +59,28 @@ $arr = $theDBA->getScoresTable();
 
 	function searchPlayer() {
 		// Make highlighted bottom row with the found name
-		
+		var array = <?php echo json_encode($arr);?>;
+		var index = -1;
+		var str = "";
+		var name = document.getElementById('playerInput');
+		var toChange = document.getElementById("searchResult");
+        
+		for (var i = 0; i < array.length; i++) {
+			if (name.value == array[i]['username']) {
+				index = i;
+			}
+		}
+		if (index == -1) {
+			toChange.innerHTML = "User not found";
+		}
+		else {
+			str += "<table class='searchResult'>";
+			str += "<tr>";
+            str += "<td>" + array[index]['username'] + "</td>";
+            str += "<td>" + array[index]['score'] + "</td>";
+            str += "</tr></table>";
+            toChange.innerHTML = str;
+		}
 	}
 </script>
 </body>
