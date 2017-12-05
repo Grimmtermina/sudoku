@@ -69,6 +69,8 @@ tr:nth-child(even) {
 	margin: 0 auto;
 	padding: 0px;
 	border: 0px;
+	text-align: center;
+	font-weight: bold;
 }
 
 .box {
