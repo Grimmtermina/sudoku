@@ -275,7 +275,7 @@ password. Registration is done through the login page right now. -->
 			alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
 			generatePuzzle('new');
 		} else{
-			alert("Your submission is incorrect. The highlighted boxes are incorrect");
+			alert("Your submission is incorrect. The highlighted boxes will show what's wrong");
 		}
 		
 		for(var i = 0; i < redFlagArray.length; i++){
