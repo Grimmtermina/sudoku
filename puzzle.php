@@ -238,9 +238,7 @@ password. Registration is done through the login page right now. -->
 		for(var i = 0; i < flagArrayTemp.length; i++){
 			if(flagArrayTemp[i] == 1){
 				var num = i + 1;
-				console.log(document.getElementById('inputBox'+num).className);
 				document.getElementById('inputBox'+num).className = document.getElementById('inputBox'+num).className.replace(/\bfade-it\b/, '');
-				console.log(document.getElementById('inputBox'+num).className);
 			}
 		}
 		for(var i = 0; i < flagArrayTemp.length; i++){
@@ -248,11 +246,16 @@ password. Registration is done through the login page right now. -->
 				var num = i + 1;
 				if(intArrayTemp[i] == document.getElementById('inputBox' + num).value){
 					continue;
-				} else{
-					document.getElementById('inputBox'+num).className += ' fade-it';
+				} else{			
+					//Apply below to every incorrect box		
+					alert("Your submission is incorrect. The first error seen was at " + row + ", " + col + "(row,column)");
+					if(document.getElementById('inputBox'+num).className == 'sudokuInput '){
+						document.getElementById('inputBox'+num).className += 'fade-it';
+					} else{
+						document.getElementById('inputBox'+num).className += ' fade-it';
+					}
 					var row = Math.floor(i/9) + 1;
 					var col = (i % 9) + 1;
-					alert("Your submission is incorrect. The first error seen was at " + row + ", " + col + "(row,column)");
 					document.getElementById('inputBox'+num).value = "";
 					return;
 				}
@@ -261,7 +264,6 @@ password. Registration is done through the login page right now. -->
 		alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
 		//TODO: Database stuff here for putting in score based on difficulty.
 		
-		//TODO, generate below based on current not always easy
 		generatePuzzle('new');
 	}
 	</script>
