@@ -17,7 +17,7 @@ class DatabaseAdaptor {
     }
     
     public function getScoresTable() {
-        $stmt = $this->DB->prepare ("SELECT users.username, highscore.score FROM users JOIN highscore ON users.id = highscore.userID");
+        $stmt = $this->DB->prepare ("SELECT users.username, highscore.score FROM users JOIN highscore ON users.id = highscore.userID ORDER BY highscore.score DESC");
         $stmt->execute ();
         return $stmt->fetchAll ( PDO::FETCH_ASSOC );
     }
