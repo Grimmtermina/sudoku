@@ -99,12 +99,12 @@ if(isset($_POST['value']) && isset($_POST['scoreUSN'])) {
    }
    
    if ($found == -1) {
-       $theDBA->addScoreToDB($id, (int)$_POST['value']);
+       $theDBA->addScoreToDB((int)$id, (int)$_POST['value']);
        header('Location: puzzle.php');
    }
    
    else if ($scoresArr[$found]['score'] <= (int)$_POST['value']) {
-       $theDBA->replaceScore($id, (int)$_POST['value']);
+       $theDBA->replaceScore((int)$id, (int)$_POST['value']);
        header('Location: puzzle.php');
    }
    else {

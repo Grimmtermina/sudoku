@@ -30,14 +30,14 @@ class DatabaseAdaptor {
     
     // Add in bindParam (change prepare to use generic variables, bind them as php var)
     public function addScoreToDB($userID,$score) {
-        $sql = $this->DB->prepare("INSERT INTO highscore (userID, score) VALUES (" . $userID . "," . $score . ")");
+        $sql = $this->DB->prepare("INSERT INTO highscore (userID, score) VALUES (" . $userID . "," . $score);
         // bind, replace statement above
         $sql->execute ();
     }
     
     // Add in bindParam (change prepare to use generic variables, bind them as php var)
     public function replaceScore($userID,$score) {
-        $sql = $this->DB->prepare ("UPDATE highscore SET score =" . $score . "WHERE userID =" . $userID . ")");
+        $sql = $this->DB->prepare ("UPDATE highscore SET score=" . $score . "WHERE userID=" . $userID);
         // bind, replace statement above
         $sql->execute ();
     }
