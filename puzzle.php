@@ -239,12 +239,16 @@ password. Registration is done through the login page right now. -->
 	//STRETCH TODO: Find all invalid inputs(mark in separate matrix)
 	//				Highlight the boxes that they are contained in red(temporary).
 	function checkSolutions(){
-		flagArrayTemp = sessionStorage.getItem('flagArray');
+		var flagArrayTemp = sessionStorage.getItem('flagArray');
 		flagArrayTemp = (flagArrayTemp) ? JSON.parse(flagArrayTemp) : [];
 		
-		intArrayTemp = sessionStorage.getItem('intArray');
+		var intArrayTemp = sessionStorage.getItem('intArray');
 		intArrayTemp = (intArrayTemp) ? JSON.parse(intArrayTemp) : [];
 
+		var redFlagArray = [];
+
+		var perfect = true;
+		
 		for(var i = 0; i < flagArrayTemp.length; i++){
 			if(flagArrayTemp[i] == 1){
 				var num = i + 1;
@@ -255,26 +259,43 @@ password. Registration is done through the login page right now. -->
 			if(flagArrayTemp[i] == 1){
 				var num = i + 1;
 				if(intArrayTemp[i] == document.getElementById('inputBox' + num).value){
+					redFlagArray[i] = 0;
 					continue;
 				} else{			
-					//Apply below to every incorrect box		
-					alert("Your submission is incorrect. The first error seen was at " + row + ", " + col + "(row,column)");
-					if(document.getElementById('inputBox'+num).className == 'sudokuInput '){
-						document.getElementById('inputBox'+num).className += 'fade-it';
-					} else{
-						document.getElementById('inputBox'+num).className += ' fade-it';
-					}
-					var row = Math.floor(i/9) + 1;
-					var col = (i % 9) + 1;
-					document.getElementById('inputBox'+num).value = "";
-					return;
+					//Apply below to every incorrect box
+					redFlagArray[i]	= 1;
+					perfect = false;
 				}
+			} else{
+				redFlagArray[i] = 0;
 			}
 		}
-		alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
+
+		if(perfect){
+			alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
+			generatePuzzle('new');
+		} else{
+			alert("Your submission is incorrect. The highlighted boxes are incorrect");
+		}
+		
+		for(var i = 0; i < redFlagArray.length; i++){
+			var num = i + 1;
+			if(redFlagArray[i] == 1){
+				if(document.getElementById('inputBox'+num).className == 'sudokuInput '){
+					document.getElementById('inputBox'+num).className += 'fade-it';
+					console.log(document.getElementById('inputBox'+num).className);
+				} else{
+					document.getElementById('inputBox'+num).className += ' fade-it';
+					console.log(document.getElementById('inputBox'+num).className);
+				}
+				var row = Math.floor(i/9) + 1;
+				var col = (i % 9) + 1;
+				document.getElementById('inputBox'+num).value = "";
+			}
+		}
 		//TODO: Database stuff here for putting in score based on difficulty.
 		
-		generatePuzzle('new');
+		
 	}
 	</script>
 	<br>
