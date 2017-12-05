@@ -22,8 +22,10 @@ class DatabaseAdaptor {
         return $stmt->fetchAll ( PDO::FETCH_ASSOC );
     }
     
+    // Add in bindParam
     public function addScoreToDB($userID,$score) {
-        
+        $sql = $this->DB->prepare("INSERT INTO highscore (id, score) VALUES ('" . $userID . "','" . $score . "')");
+        $sql->execute ();
     }
     
     public function getUsers() {

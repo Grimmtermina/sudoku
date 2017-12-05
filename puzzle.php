@@ -285,7 +285,7 @@ password. Registration is done through the login page right now. -->
 		}
 
 		if(perfect){
-			if (user = 'n/a') {
+			if (user == 'n/a') {
 				alert("Congratulations! Log in to have your high score saved.");
     			// Perform scoring given the difficulty and the time taken to complete
     			var score = setScore(count,mode);
@@ -303,8 +303,11 @@ password. Registration is done through the login page right now. -->
     			puzzleTimer = setInterval(counter, 1000);
     			count = 0;
     			alert("Your score was " + score + "!");
+
+    			// FIXME: Either get this working or change the process
     			var scoreDiv = document.getElementById('hiddenScore');
     			scoreDiv.innerHTML = '<form id="game" action="controller.php" method="POST"><input type="hidden" name="value" value=' + score.toString() + '></form>'
+
     			generatePuzzle('new');
 			}
 		} else{

@@ -81,8 +81,15 @@ if(isset($_POST['mode'])) {
 
 // Scoring handler
 if(isset($_POST['value']) && isset($_POST['scoreUSN'])) {
-   echo 'alert("Success, score = ' . $_POST['value'] . '");';
-   $theDBA->addScoreToDB($_POST['scoreUSN'], $_POST['value']);
+//    echo 'alert("Success, score = ' . $_POST['value'] . '");';
+   $id = "";
+   for($i = 0; $i < count($userArr); $i++) {
+       if($userArr[$i]['username'] == $_POST['scoreUSN']) {
+           $found = $i;
+       }
+   }
+   $id = $userArr[$i]['id'];
+   $theDBA->addScoreToDB($id, $_POST['value']);
    header('Location: puzzle.php');
 }
 
