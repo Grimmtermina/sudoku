@@ -63,8 +63,8 @@ if(isset($_POST['regusn']) && isset($_POST['regpass'])) {
 }
 
 // Difficulty settings handler
-if(isset($_POST['difficulty'])) {
-    $difficulty = htmlspecialchars($_POST['difficulty']);
+if(isset($_POST['mode'])) {
+    $difficulty = htmlspecialchars($_POST['mode']);
     if ($difficulty == 'easy') {
         $_SESSION['difficulty'] = 'easy';
         header('Location: puzzle.php');
@@ -77,6 +77,7 @@ if(isset($_POST['difficulty'])) {
         $_SESSION['difficulty'] = 'hard';
         header('Location: puzzle.php');
     }
+    unset($_SESSION['mode']);
 }
 
 // Logout session handler
