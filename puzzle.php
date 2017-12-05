@@ -10,12 +10,12 @@ password. Registration is done through the login page right now. -->
 <meta charset="UTF-8">
 <link href="sudoku.css" rel="stylesheet" type="text/css" />
 <title>Sudoku</title>
-</head>
-<body onload="generatePuzzle('load');">
 	<?php
 	require_once './model.php';
 	session_start ();
 	?>
+</head>
+<body onload="generatePuzzle('load');">
 	<h1>SUDOKU CHALLENGE</h1>
 	<div class="btnbar">
 		<?php
@@ -91,8 +91,8 @@ password. Registration is done through the login page right now. -->
 		var boxNum = "";
 
 		// Set difficulty to easy if it's not set
-		if (<?php echo isset($_SESSION['difficulty'])?>) {
-			var difficulty = '<?php echo $_SESSION['difficulty'];?>';
+		if (<?php echo isset($_SESSION['difficulty'])?'true':'false'; ?>) {
+			var difficulty = "<?php echo $_SESSION['difficulty'];?>";
 		}
 		else {
 			var difficulty = 'easy';
