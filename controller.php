@@ -51,6 +51,7 @@ if(isset($_POST['regusn']) && isset($_POST['regpass'])) {
     if($found != -1) {
         $_SESSION['regError'] = 'USN already exists in database. Choose different USN';
         header('Location: register.php');
+        $found = -1;
     }
     // Add new usn with associated password to the database (if doesn't exist)
     else {

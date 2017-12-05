@@ -51,7 +51,7 @@ class DatabaseAdaptor {
         $stmt->execute ();
         return $stmt->fetchAll ( PDO::FETCH_ASSOC );
     }
-    
+
     public function addUserToDB($usn,$pass) {
         $sql = $this->DB->prepare("INSERT INTO users (username, hash) VALUES (?, ?)");
         $sql->bindParam(1, $usn, PDO::PARAM_STR);
