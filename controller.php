@@ -81,7 +81,6 @@ if(isset($_POST['mode'])) {
 
 // Scoring handler
 if(isset($_POST['value']) && isset($_POST['scoreUSN'])) {
-//    echo 'alert("Success, score = ' . $_POST['value'] . '");';
    $id = "";
    $found = -1;
    for($i = 0; $i < count($userArr); $i++) {

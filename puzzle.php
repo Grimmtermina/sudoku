@@ -79,7 +79,7 @@ password. Registration is done through the login page right now. -->
 	}
 	echo '</div>';
 	?>
-	<div id="hiddenScore"></div>
+	
 	<?php
 	if (isset ( $_SESSION ['difficulty'] )) {
 		$difficulty = $_SESSION ['difficulty'];
@@ -157,20 +157,20 @@ password. Registration is done through the login page right now. -->
 				flagArray[i] = 0;
 			}
 			for(var i = 0; i < 9; i++){
-				var one = Math.floor(Math.random()*9);
-				var two = Math.floor(Math.random()*9);
-				while(one == two){
-					two = Math.floor(Math.random()*9);
-				}
+// 				var one = Math.floor(Math.random()*9);
+// 				var two = Math.floor(Math.random()*9);
+// 				while(one == two){
+// 					two = Math.floor(Math.random()*9);
+// 				}
 
-				one = i*9 + one + 1;
-				two = i*9 + two + 1;
-				//flag the boxes we'll be changing so we can find them easily.
-				flagArray[one-1] = 1;
-				flagArray[two-1] = 1;
-				//replace with text boxes
-				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
-				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
+// 				one = i*9 + one + 1;
+// 				two = i*9 + two + 1;
+// 				//flag the boxes we'll be changing so we can find them easily.
+// 				flagArray[one-1] = 1;
+// 				flagArray[two-1] = 1;
+// 				//replace with text boxes
+// 				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
+// 				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
 			}
 			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
 		} else if(difficulty === 'medium'){
@@ -300,19 +300,15 @@ password. Registration is done through the login page right now. -->
     			generatePuzzle('new');
 			}
 			else {
-    			alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
+    			alert("Congratulations! Your solution is correct.");
     			// Perform scoring given the difficulty and the time taken to complete
     			var score = setScore(count,mode);
     			clearInterval(puzzleTimer);
     			puzzleTimer = setInterval(counter, 1000);
     			count = 0;
-    			alert("Your score was " + score + "!");
+    			alert("Your score was " + score + "! Press submit to add your score to the high scores.");
 
-    			// FIXME: Either get this working or change the process
-    			var scoreDiv = document.getElementById('hiddenScore');
-    			scoreDiv.innerHTML = '<form id="game" action="controller.php" method="POST"><input type="hidden" name="value" value=' + score.toString() + '></form>'
-
-    			generatePuzzle('new');
+				sendScore(score,user);
 			}
 		} else{
 			alert("Your submission is incorrect. The highlighted boxes will show what's wrong");
@@ -371,6 +367,19 @@ password. Registration is done through the login page right now. -->
 		}
 		return score;
 	}
+
+	function sendScore(score, user) {
+		var changeDiv = document.getElementById("scorepane");
+
+		changeDiv.innerHTML = '<form id="game" action="controller.php" method="POST" onsubmit="clearPane();"><input type="hidden" name="value" value=' + score.toString() + '><input type="hidden" value=' + user + '><input type="submit" class="btn" value="Submit Score"></form>'
+	}
+
+	function clearPane() {
+		var changeDiv = document.getElementById("scorepane");
+
+		changeDiv.style.display = "block";
+		generatePuzzle('new');
+	}
 	</script>
 	<br>
 	<br>
@@ -400,5 +409,7 @@ password. Registration is done through the login page right now. -->
 	<br>
 	<div class="timer">Timer:</div>
 	<div class="timer" id="time"></div>
+	<br>
+	<div class="scorepane" id="scorepane"></div>
 </body>
 </html>

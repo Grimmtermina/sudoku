@@ -241,3 +241,8 @@ tr:nth-child(even) {
 	font-weight: bold;
 	font-size: 18px;
 }
+
+.scorepane {
+	display: hidden;
+	text-align: center;
+}
