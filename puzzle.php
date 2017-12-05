@@ -24,21 +24,21 @@ password. Registration is done through the login page right now. -->
 			echo '<a class="btn" href="login.php">Login</a>';
 		}
 		?>
-        <a class="btn" onclick="generatePuzzle('new');">New Puzzle</a> 
-        <a class="btn" href="highScore.php">View High Scores</a>
+        <a class="btn" onclick="generatePuzzle('new');">New Puzzle</a> <a
+			class="btn" href="highScore.php">View High Scores</a>
     	<?php
-		// Session-specific button functionality
-		if (isset ( $_SESSION ['user'] )) {
-			echo '<br><br><form class="form" action="controller.php" method="POST">';
-			echo '<select class="btn" name="mode" onchange=this.form.submit()>
+					// Session-specific button functionality
+					if (isset ( $_SESSION ['user'] )) {
+						echo '<br><br><form class="form" action="controller.php" method="POST">';
+						echo '<select class="btn" name="mode" onchange=this.form.submit()>
             <option value="none">Difficulty</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option></select>';
-			echo '   <input class="btn" type="submit" name="logout" value="Logout">';
-			echo '</form><br>';
-		}
-		?>
+						echo '   <input class="btn" type="submit" name="logout" value="Logout">';
+						echo '</form><br>';
+					}
+					?>
 	</div>
 	<br>
     
@@ -80,26 +80,24 @@ password. Registration is done through the login page right now. -->
 	echo '</div>';
 	?>
 	<div id="hiddenScore"></div>
-	<?php 
-	   if (isset($_SESSION['difficulty'])) {
-	       $difficulty = $_SESSION['difficulty'];
-	   }
-	   else {
-	       $difficulty = 'easy';
-	   }
-	   
-	   if (isset($_SESSION['user'])) {
-	       $usn = $_SESSION['user'];
-	   }
-	   else {
-	       $usn = 'n/a';
-	   }
+	<?php
+	if (isset ( $_SESSION ['difficulty'] )) {
+		$difficulty = $_SESSION ['difficulty'];
+	} else {
+		$difficulty = 'easy';
+	}
+	
+	if (isset ( $_SESSION ['user'] )) {
+		$usn = $_SESSION ['user'];
+	} else {
+		$usn = 'n/a';
+	}
 	?>
 	
 	<script>
 	var array = [];
 	var puzzleArray = [];
-	var intArray = [];
+	var intArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 	var flagArray = [];
 	var puzzleTimer;
 	var count = 0;
@@ -109,6 +107,7 @@ password. Registration is done through the login page right now. -->
 		var boxNum = "";
 
 		var difficulty = '<?php echo $difficulty?>';
+		console.log(difficulty);
 		
 		getNewPuzzle();
 		if ((setting == 'load' && sessionStorage.getItem('generated') != 'true') || setting == 'new') {
@@ -117,7 +116,9 @@ password. Registration is done through the login page right now. -->
     			puzzleArray[i] = document.getElementById(boxNum);
     		}
     		for (var i = 0; i < puzzleArray.length; i++) {
-    			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
+        		if(intArray[i] != 0){
+    				puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
+        		}
     		}
     		sessionStorage.setItem('generated', 'true');
 
@@ -134,8 +135,10 @@ password. Registration is done through the login page right now. -->
     			puzzleArray[i] = document.getElementById(boxNum);
     		}
     		
-    		for (var i = 0; i < puzzleArray.length; i++) {;
-    			puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
+    		for (var i = 0; i < puzzleArray.length; i++) {
+    			if(intArray[i] != 0){
+    				puzzleArray[i].innerHTML = "<b>" + intArray[i] + "</b>";
+    			}
     		}
 		}
 		
@@ -240,8 +243,9 @@ password. Registration is done through the login page right now. -->
 		var anObj = new XMLHttpRequest();
 		anObj.open("GET", "puzzle_gen.php", true);
 		anObj.send();
+
 		anObj.onreadystatechange = function() {
-			if (anObj.readyState == 4 && anObj.status == 200) {
+			if ((anObj.readyState == 4) && anObj.status == 200) {
 				array = JSON.parse(anObj.responseText);
 				intArray = array;
 			}
