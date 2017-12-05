@@ -30,11 +30,7 @@ class DatabaseAdaptor {
     
     // Add in bindParam (change prepare to use generic variables, bind them as php var)
     public function addScoreToDB($userID,$score) {
-<<<<<<< HEAD
-        $sql = $this->DB->prepare("INSERT INTO highscore (userID, score) VALUES (" . $userID . "," . $score);
-=======
         $sql = $this->DB->prepare("INSERT INTO highscore (userID, score) VALUES (:userID, :score)");
->>>>>>> 7ff044d23f3f41bcb900e60441d9a79d67d3b465
         // bind, replace statement above
         $sql->bindParam(':userID', $userID, PDO::PARAM_INT);
         $sql->bindParam(':score', $score, PDO::PARAM_INT);
@@ -43,11 +39,7 @@ class DatabaseAdaptor {
     
     // Add in bindParam (change prepare to use generic variables, bind them as php var)
     public function replaceScore($userID,$score) {
-<<<<<<< HEAD
-        $sql = $this->DB->prepare ("UPDATE highscore SET score=" . $score . "WHERE userID=" . $userID);
-=======
         $sql = $this->DB->prepare ("UPDATE highscore SET score = :score WHERE userID = :userID");
->>>>>>> 7ff044d23f3f41bcb900e60441d9a79d67d3b465
         // bind, replace statement above
         $sql->bindParam(':userID', $userID, PDO::PARAM_INT);
         $sql->bindParam(':score', $score, PDO::PARAM_INT);

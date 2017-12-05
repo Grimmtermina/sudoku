@@ -7,6 +7,7 @@ password. Registration is done through the login page right now. -->
 
 <html>
 <head>
+<link rel="icon" href="./styles/sudoku.ico">
 <meta charset="UTF-8">
 <link href="sudoku.css" rel="stylesheet" type="text/css" />
 <link href="http://fonts.googleapis.com/css?family=Corben:bold"
@@ -339,7 +340,7 @@ password. Registration is done through the login page right now. -->
 	function counter() {
 		count++;
 		var timer = document.getElementById('time');
-		timer.innerHTML = count;		
+		timer.innerHTML = "Timer: " + count;		
 	}
 
 	// Tabulates score based on difficulty setting and time to finish
@@ -411,7 +412,6 @@ password. Registration is done through the login page right now. -->
 		<button class="btn" onclick="checkSolutions();">Check Submission</button>
 	</div>
 	<br>
-	<div class="timer">Timer:</div>
 	<div class="timer" id="time"></div>
 	<br>
 	<div class="scorepane" id="scorepane"></div>

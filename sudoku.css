@@ -6,7 +6,8 @@ h1 {
 }
 
 body {
-	background-color: gainsboro;
+/* 	background-color: gainsboro; */
+	background: url(styles/vintage-leaves.png) repeat 0 0;
 	overflow: auto;
 }
 
