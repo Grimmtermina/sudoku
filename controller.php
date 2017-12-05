@@ -83,14 +83,31 @@ if(isset($_POST['mode'])) {
 if(isset($_POST['value']) && isset($_POST['scoreUSN'])) {
 //    echo 'alert("Success, score = ' . $_POST['value'] . '");';
    $id = "";
+   $found = -1;
    for($i = 0; $i < count($userArr); $i++) {
        if($userArr[$i]['username'] == $_POST['scoreUSN']) {
            $found = $i;
        }
    }
-   $id = $userArr[$i]['id'];
-   $theDBA->addScoreToDB($id, $_POST['value']);
-   header('Location: puzzle.php');
+   $id = $userArr[$found]['id']; // No if statement because this is opened assuming there's a username 
+   
+   $found = -1;
+   $scoresArr = $theDBA->getScoresTable();
+   for ($i = 0; $i < $scoresArr; $i++) {
+       if ($scoresArr[$i]['id'] == $id) {
+           $found = $i;
+       }
+   }
+   
+   if ($found == -1) {
+       $theDBA->addScoreToDB($id, $_POST['value']);
+       header('Location: puzzle.php');
+   }
+   
+   else if ($scoresArr[$found]['score'] <= $_POST['value']) {
+       $theDBA->replaceScore($id, $_POST['value']);
+       header('Location: puzzle.php');
+   }
 }
 
 // Logout session handler
