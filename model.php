@@ -23,7 +23,7 @@ class DatabaseAdaptor {
     }
     
     public function addScoreToDB($userID,$score) {
-        // FIXME: FINISH!
+        
     }
     
     public function getUsers() {

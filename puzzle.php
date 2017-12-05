@@ -79,7 +79,7 @@ password. Registration is done through the login page right now. -->
 	}
 	echo '</div>';
 	?>
-	
+	<div id="hiddenScore"></div>
 	<?php 
 	   if (isset($_SESSION['difficulty'])) {
 	       $difficulty = $_SESSION['difficulty'];
@@ -87,13 +87,22 @@ password. Registration is done through the login page right now. -->
 	   else {
 	       $difficulty = 'easy';
 	   }
+	   
+	   if (isset($_SESSION['user'])) {
+	       $usn = $_SESSION['user'];
+	   }
+	   else {
+	       $usn = 'n/a';
+	   }
 	?>
 	
 	<script>
 	var array = [];
 	var puzzleArray = [];
-	var intArray;
+	var intArray = [];
 	var flagArray = [];
+	var puzzleTimer;
+	var count = 0;
 	
 	// Should generate full puzzle and randomize which are hidden based on difficulty
 	function generatePuzzle(setting) {
@@ -113,6 +122,9 @@ password. Registration is done through the login page right now. -->
     		sessionStorage.setItem('generated', 'true');
 
 			sessionStorage.setItem('intArray', JSON.stringify(intArray));
+			clearInterval(puzzleTimer);
+			count = 0;
+			puzzleTimer = setInterval(counter, 1000);
 		}
 		else {
 			intArray = sessionStorage.getItem('intArray');
@@ -236,9 +248,10 @@ password. Registration is done through the login page right now. -->
 		};
 	}
 
-	//STRETCH TODO: Find all invalid inputs(mark in separate matrix)
-	//				Highlight the boxes that they are contained in red(temporary).
 	function checkSolutions(){
+		var mode = '<?php echo $difficulty?>';
+		var user = '<?php echo $usn?>';
+		
 		var flagArrayTemp = sessionStorage.getItem('flagArray');
 		flagArrayTemp = (flagArrayTemp) ? JSON.parse(flagArrayTemp) : [];
 		
@@ -272,8 +285,28 @@ password. Registration is done through the login page right now. -->
 		}
 
 		if(perfect){
-			alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
-			generatePuzzle('new');
+			if (user = 'n/a') {
+				alert("Congratulations! Log in to have your high score saved.");
+    			// Perform scoring given the difficulty and the time taken to complete
+    			var score = setScore(count,mode);
+    			clearInterval(puzzleTimer);
+    			puzzleTimer = setInterval(counter, 1000);
+    			count = 0;
+    			alert("Your score was " + score + "!");
+    			generatePuzzle('new');
+			}
+			else {
+    			alert("Congratulations! Your score has been placed in the high scores for correctly solving the puzzle.");
+    			// Perform scoring given the difficulty and the time taken to complete
+    			var score = setScore(count,mode);
+    			clearInterval(puzzleTimer);
+    			puzzleTimer = setInterval(counter, 1000);
+    			count = 0;
+    			alert("Your score was " + score + "!");
+    			var scoreDiv = document.getElementById('hiddenScore');
+    			scoreDiv.innerHTML = '<form id="game" action="controller.php" method="POST"><input type="hidden" name="value" value=' + score.toString() + '></form>'
+    			generatePuzzle('new');
+			}
 		} else{
 			alert("Your submission is incorrect. The highlighted boxes will show what's wrong");
 		}
@@ -293,9 +326,43 @@ password. Registration is done through the login page right now. -->
 				document.getElementById('inputBox'+num).value = "";
 			}
 		}
-		//TODO: Database stuff here for putting in score based on difficulty.
+	}
+
+	// Used as a timer, for scoring purposes
+	function counter() {
+		count++;
+		var timer = document.getElementById('time');
+		timer.innerHTML = count;		
+	}
+
+	// Tabulates score based on difficulty setting and time to finish
+	function setScore(time, difficulty) {
+		var score = 0;
+		var timeUp = 0;
 		
-		
+		if (difficulty == 'easy') {
+			timeUp = 600;
+			if (time > timeUp) {
+				return score;
+			} else {
+				score = (timeUp - time);
+			}
+		} else if (difficulty == 'medium') {
+			timeUp = 720;
+			if (time > timeUp) {
+				return score;
+			} else {
+				score = (timeUp - time) * 2;
+			}
+		} else if (difficulty == 'hard') {
+			timeUp = 900;
+			if (time > timeUp) {
+				return score;
+			} else {
+				score = (timeUp - time) * 3;
+			}
+		}
+		return score;
 	}
 	</script>
 	<br>
@@ -323,5 +390,8 @@ password. Registration is done through the login page right now. -->
 	<div class="btnbar2">
 		<button class="btn" onclick="checkSolutions();">Check Submission</button>
 	</div>
+	<br>
+	<div class="timer">Timer:</div>
+	<div class="timer" id="time"></div>
 </body>
 </html>

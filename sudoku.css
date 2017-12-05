@@ -234,3 +234,8 @@ tr:nth-child(even) {
   animation: yellow-fade 1s ease-in-out 0s;
 }
 
+.timer {
+	text-align: center;
+	font-weight: bold;
+	font-size: 18px;
+}

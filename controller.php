@@ -79,6 +79,13 @@ if(isset($_POST['mode'])) {
     }
 }
 
+// Scoring handler
+if(isset($_POST['value']) && isset($_POST['scoreUSN'])) {
+   echo 'alert("Success, score = ' . $_POST['value'] . '");';
+   $theDBA->addScoreToDB($_POST['scoreUSN'], $_POST['value']);
+   header('Location: puzzle.php');
+}
+
 // Logout session handler
 if(isset( $_POST['logout']) && $_POST['logout'] == 'Logout') {
     session_destroy();
