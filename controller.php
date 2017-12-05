@@ -92,8 +92,8 @@ if(isset($_POST['value']) && isset($_POST['scoreUSN'])) {
    
    $found = -1;
    $scoresArr = $theDBA->getHighScores();
-   for ($i = 0; $i < $scoresArr; $i++) {
-       if ($scoresArr[$i]['id'] == $id) {
+   for ($i = 0; $i < count($scoresArr); $i++) {
+       if ($scoresArr[$i]['userID'] == $id) {
            $found = $i;
        }
    }
