@@ -199,4 +199,5 @@ tr:nth-child(even) {
 
 .searchResult {
 	background-color: yellow;
+	height: 40px;
 }
