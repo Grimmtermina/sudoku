@@ -51,11 +51,11 @@ class DatabaseAdaptor {
         $stmt->execute ();
         return $stmt->fetchAll ( PDO::FETCH_ASSOC );
     }
-    
-    public function addUserToDB($usn, $pass) {
-        $sql = $this->DB->prepare("INSERT INTO users (username, hash) VALUES (:usn, :pass)");
-        $sql->bindParam(':usn', $usn);
-        $sql->bindParam(':pass', $pass);
+
+    public function addUserToDB($usn,$pass) {
+        $sql = $this->DB->prepare("INSERT INTO users (username, hash) VALUES (?, ?)");
+        $sql->bindParam(1, $usn, PDO::PARAM_STR);
+        $sql->bindParam(2, $pass, PDO::PARAM_STR);
         $sql->execute ();
     }
 } // End class DatabaseAdaptor

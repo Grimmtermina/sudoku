@@ -35,7 +35,7 @@ password. Registration is done through the login page right now. -->
 					// Session-specific button functionality
 					if (isset ( $_SESSION ['user'] )) {
 						echo '<br><br><form class="form" action="controller.php" method="POST">';
-						echo '<select class="btn" name="mode" onchange=this.form.submit()>
+						echo '<select class="btn" name="mode" onchange="this.form.submit();">
             <option value="none">Difficulty</option>
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
