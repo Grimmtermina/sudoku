@@ -11,7 +11,7 @@ password. Registration is done through the login page right now. -->
 <link href="sudoku.css" rel="stylesheet" type="text/css" />
 <title>Sudoku</title>
 </head>
-<body onload="generatePuzzle('load', 'easy');">
+<body onload="generatePuzzle('load');">
 	<?php
 	require_once './model.php';
 	session_start ();
@@ -24,8 +24,8 @@ password. Registration is done through the login page right now. -->
 			echo '<a class="btn" href="login.php">Login</a>';
 		}
 		?>
-        <a class="btn" onclick="generatePuzzle('new', 'easy');">New
-			Puzzle</a> <a class="btn" href="highScore.php">View High Scores</a>
+        <a class="btn" onclick="generatePuzzle('new');">New Puzzle</a> <a
+			class="btn" href="highScore.php">View High Scores</a>
     	<?php
 					// Session-specific button functionality
 					if (isset ( $_SESSION ['user'] )) {
@@ -87,7 +87,8 @@ password. Registration is done through the login page right now. -->
 	var flagArray = [];
 	
 	// Should generate full puzzle and randomize which are hidden based on difficulty
-	function generatePuzzle(setting, difficulty) {
+	function generatePuzzle(setting) {
+		var difficulty='<?php echo $_SESSION['difficulty'];?>';
 		var boxNum = "";
 		getNewPuzzle();
 		if ((setting == 'load' && sessionStorage.getItem('generated') != 'true') || setting == 'new') {
@@ -233,15 +234,22 @@ password. Registration is done through the login page right now. -->
 		
 		intArrayTemp = sessionStorage.getItem('intArray');
 		intArrayTemp = (intArrayTemp) ? JSON.parse(intArrayTemp) : [];
-		
+
 		for(var i = 0; i < flagArrayTemp.length; i++){
-			console.log(flagArrayTemp[i]);
 			if(flagArrayTemp[i] == 1){
 				var num = i + 1;
-				console.log("inputBox" + num);
+				console.log(document.getElementById('inputBox'+num).className);
+				document.getElementById('inputBox'+num).className = document.getElementById('inputBox'+num).className.replace(/\bfade-it\b/, '');
+				console.log(document.getElementById('inputBox'+num).className);
+			}
+		}
+		for(var i = 0; i < flagArrayTemp.length; i++){
+			if(flagArrayTemp[i] == 1){
+				var num = i + 1;
 				if(intArrayTemp[i] == document.getElementById('inputBox' + num).value){
 					continue;
 				} else{
+					document.getElementById('inputBox'+num).className += ' fade-it';
 					var row = Math.floor(i/9) + 1;
 					var col = (i % 9) + 1;
 					alert("Your submission is incorrect. The first error seen was at " + row + ", " + col + "(row,column)");
@@ -254,7 +262,7 @@ password. Registration is done through the login page right now. -->
 		//TODO: Database stuff here for putting in score based on difficulty.
 		
 		//TODO, generate below based on current not always easy
-		generatePuzzle('new', 'easy');
+		generatePuzzle('new');
 	}
 	</script>
 	<br>
