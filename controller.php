@@ -39,8 +39,8 @@ if(isset($_POST['usn']) && isset($_POST['pass'])) {
 // Registration session handler
 if(isset($_POST['regusn']) && isset($_POST['regpass'])) {
     $found = -1;
-    $regusn = htmlspecialchars($regusn);
-    $regpass = htmlspecialchars($regpass);
+    $regusn = htmlspecialchars($_POST['regusn']);
+    $regpass = htmlspecialchars($_POST['regpass']);
     // Check for existing usn
     for($i = 0; $i < count($userArr); $i++) {
         if($userArr[$i]['username'] == $regusn) {

@@ -53,9 +53,9 @@ class DatabaseAdaptor {
     }
     
     public function addUserToDB($usn,$pass) {
-        $sql = $this->DB->prepare("INSERT INTO users (username, hash) VALUES (':usn',':pass')");
-        $sql->bindParam(':usn', $usn, PDO::PARAM_STR);
-        $sql->bindParam(':pass', $pass, PDO::PARAM_STR);
+        $sql = $this->DB->prepare("INSERT INTO users (username, hash) VALUES (?, ?)");
+        $sql->bindParam(1, $usn, PDO::PARAM_STR);
+        $sql->bindParam(2, $pass, PDO::PARAM_STR);
         $sql->execute ();
     }
 } // End class DatabaseAdaptor
