@@ -2,6 +2,7 @@
 
 h1 {
 	text-align: center;
+	font-family: 'Nobile', Helvetica, Arial, sans-serif;
 }
 
 body {
@@ -35,7 +36,7 @@ tr:nth-child(even) {
 	padding: 5px;
 	text-decoration: none;
 	border-radius: 5px;
-	font-family: Times New-Roman;
+	font-family: 'Nobile', Helvetica, Arial, sans-serif;
 	font-size: 18pt;
 	color: white;
 	cursor: pointer;
@@ -50,7 +51,7 @@ tr:nth-child(even) {
 	padding: 5px;
 	text-decoration: none;
 	border-radius: 5px;
-	font-family: Times New-Roman;
+	font-family: 'Nobile', Helvetica, Arial, sans-serif;
 	color: white;
 	cursor: pointer;
 }
@@ -185,6 +186,7 @@ tr:nth-child(even) {
 }
 
 .puzzle {
+	font-family: 'Nobile', Helvetica, Arial, sans-serif;
 	margin: 0 auto;
 	width: 400px;
 }
@@ -194,7 +196,7 @@ tr:nth-child(even) {
 }
 
 .search {
-	font-family: Times New-Roman;
+	font-family: 'Nobile', Helvetica, Arial, sans-serif;
 	font-size: 12pt;
 	height: 24px;
 }
@@ -204,39 +206,45 @@ tr:nth-child(even) {
 	height: 40px;
 }
 
-@-webkit-keyframes yellow-fade {
-  from {
-    background: #f00;
-  }
-  to {
-    background: #fff;
-  }
-}
-@-moz-keyframes yellow-fade {
-  from {
-    background: #f00;
-  }
-  to {
-    background: #fff;
-  }
-}
-@keyframes yellow-fade {
-  from {
-    background: #f00;
-  }
-  to {
-    background: #fff;
-  }
+@
+-webkit-keyframes yellow-fade {from { background:#f00;
+	
 }
 
+to {
+	background: #fff;
+}
+
+}
+@
+-moz-keyframes yellow-fade {from { background:#f00;
+	
+}
+
+to {
+	background: #fff;
+}
+
+}
+@
+keyframes yellow-fade {from { background:#f00;
+	
+}
+
+to {
+	background: #fff;
+}
+
+}
 .fade-it {
-  -webkit-animation: yellow-fade 1s ease-in-out 0s;
-  -moz-animation: yellow-fade 1s ease-in-out 0s;
-  -o-animation: yellow-fade 1s ease-in-out 0s;
-  animation: yellow-fade 1s ease-in-out 0s;
+	-webkit-animation: yellow-fade 1s ease-in-out 0s;
+	-moz-animation: yellow-fade 1s ease-in-out 0s;
+	-o-animation: yellow-fade 1s ease-in-out 0s;
+	animation: yellow-fade 1s ease-in-out 0s;
 }
 
 .timer {
+	font-family: 'Nobile', Helvetica, Arial, sans-serif;
 	text-align: center;
 	font-weight: bold;
 	font-size: 18px;

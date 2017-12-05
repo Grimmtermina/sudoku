@@ -9,6 +9,10 @@ password. Registration is done through the login page right now. -->
 <head>
 <meta charset="UTF-8">
 <link href="sudoku.css" rel="stylesheet" type="text/css" />
+<link href="http://fonts.googleapis.com/css?family=Corben:bold"
+	rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Nobile"
+	rel="stylesheet" type="text/css">
 <title>Sudoku</title>
 	<?php
 	require_once './model.php';
