@@ -91,7 +91,7 @@ if(isset($_POST['value']) && isset($_POST['scoreUSN'])) {
    $id = $userArr[$found]['id']; // No if statement because this is opened assuming there's a username 
    
    $found = -1;
-   $scoresArr = $theDBA->getScoresTable();
+   $scoresArr = $theDBA->getHighScores();
    for ($i = 0; $i < $scoresArr; $i++) {
        if ($scoresArr[$i]['id'] == $id) {
            $found = $i;
@@ -99,12 +99,15 @@ if(isset($_POST['value']) && isset($_POST['scoreUSN'])) {
    }
    
    if ($found == -1) {
-       $theDBA->addScoreToDB($id, $_POST['value']);
+       $theDBA->addScoreToDB($id, (int)$_POST['value']);
        header('Location: puzzle.php');
    }
    
-   else if ($scoresArr[$found]['score'] <= $_POST['value']) {
-       $theDBA->replaceScore($id, $_POST['value']);
+   else if ($scoresArr[$found]['score'] <= (int)$_POST['value']) {
+       $theDBA->replaceScore($id, (int)$_POST['value']);
+       header('Location: puzzle.php');
+   }
+   else {
        header('Location: puzzle.php');
    }
 }
