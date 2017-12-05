@@ -161,20 +161,20 @@ password. Registration is done through the login page right now. -->
 				flagArray[i] = 0;
 			}
 			for(var i = 0; i < 9; i++){
-// 				var one = Math.floor(Math.random()*9);
-// 				var two = Math.floor(Math.random()*9);
-// 				while(one == two){
-// 					two = Math.floor(Math.random()*9);
-// 				}
+				var one = Math.floor(Math.random()*9);
+				var two = Math.floor(Math.random()*9);
+				while(one == two){
+					two = Math.floor(Math.random()*9);
+				}
 
-// 				one = i*9 + one + 1;
-// 				two = i*9 + two + 1;
-// 				//flag the boxes we'll be changing so we can find them easily.
-// 				flagArray[one-1] = 1;
-// 				flagArray[two-1] = 1;
-// 				//replace with text boxes
-// 				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
-// 				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
+				one = i*9 + one + 1;
+				two = i*9 + two + 1;
+				//flag the boxes we'll be changing so we can find them easily.
+				flagArray[one-1] = 1;
+				flagArray[two-1] = 1;
+				//replace with text boxes
+				puzzleArray[one-1].innerHTML = "<input type='text' id='inputBox" + one + "' class='sudokuInput'>";
+				puzzleArray[two-1].innerHTML = "<input type='text' id='inputBox" + two + "' class='sudokuInput'>";
 			}
 			sessionStorage.setItem('flagArray', JSON.stringify(flagArray));
 		} else if(difficulty === 'medium'){
