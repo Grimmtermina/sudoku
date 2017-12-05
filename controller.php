@@ -77,7 +77,6 @@ if(isset($_POST['mode'])) {
         $_SESSION['difficulty'] = 'hard';
         header('Location: puzzle.php');
     }
-    unset($_SESSION['mode']);
 }
 
 // Logout session handler
