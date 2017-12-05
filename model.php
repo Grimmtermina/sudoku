@@ -22,6 +22,12 @@ class DatabaseAdaptor {
         return $stmt->fetchAll ( PDO::FETCH_ASSOC );
     }
     
+    public function getHighScores() {
+        $stmt = $this->DB->prepare ("SELECT * FROM highscore");
+        $stmt->execute ();
+        return $stmt->fetchAll ( PDO::FETCH_ASSOC );
+    }
+    
     // Add in bindParam (change prepare to use generic variables, bind them as php var)
     public function addScoreToDB($userID,$score) {
         $sql = $this->DB->prepare("INSERT INTO highscore (userID, score) VALUES (" . $userID . "," . $score . ")");

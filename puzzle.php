@@ -371,7 +371,7 @@ password. Registration is done through the login page right now. -->
 	function sendScore(score, user) {
 		var changeDiv = document.getElementById("scorepane");
 
-		changeDiv.innerHTML = '<form id="game" action="controller.php" method="POST" onsubmit="clearPane();"><input type="hidden" name="value" value=' + score.toString() + '><input type="hidden" value=' + user + '><input type="submit" class="btn" value="Submit Score"></form>'
+		changeDiv.innerHTML = '<form id="game" action="controller.php" method="POST" onsubmit="return clearPane();"><input type="hidden" name="value" value=' + score.toString() + '><input type="hidden" name="scoreUSN" value=' + user + '><input type="submit" class="btn" value="Submit Score"></form>'
 	}
 
 	function clearPane() {
