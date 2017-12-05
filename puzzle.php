@@ -80,6 +80,15 @@ password. Registration is done through the login page right now. -->
 	echo '</div>';
 	?>
 	
+	<?php 
+	   if (isset($_SESSION['difficulty'])) {
+	       $difficulty = $_SESSION['difficulty'];
+	   }
+	   else {
+	       $difficulty = 'easy';
+	   }
+	?>
+	
 	<script>
 	var array = [];
 	var puzzleArray = [];
@@ -90,13 +99,7 @@ password. Registration is done through the login page right now. -->
 	function generatePuzzle(setting) {
 		var boxNum = "";
 
-		// Set difficulty to easy if it's not set
-		if (<?php echo isset($_SESSION['difficulty'])?>) {
-			var difficulty = '<?php echo $_SESSION['difficulty'];?>';
-		}
-		else {
-			var difficulty = 'easy';
-		}
+		var difficulty = '<?php echo $difficulty?>';
 		
 		getNewPuzzle();
 		if ((setting == 'load' && sessionStorage.getItem('generated') != 'true') || setting == 'new') {
